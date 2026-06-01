@@ -1,0 +1,777 @@
+{
+  "date": "2026-06-01",
+  "grid": {
+    "0,-4": "S",
+    "1,-4": "T",
+    "2,-4": "R",
+    "3,-4": "E",
+    "4,-4": "N",
+    "4,-3": "G",
+    "3,-3": "T",
+    "2,-3": "H",
+    "1,-3": "E",
+    "0,-3": "N",
+    "-1,-3": "P",
+    "-2,-2": "I",
+    "-1,-2": "C",
+    "0,-2": "K",
+    "1,-2": "A",
+    "2,-2": "B",
+    "3,-2": "A",
+    "4,-2": "C",
+    "4,-1": "K",
+    "3,-1": "P",
+    "2,-1": "O",
+    "1,-1": "P",
+    "0,-1": "P",
+    "-1,-1": "A",
+    "-2,-1": "D",
+    "-3,-1": "U",
+    "-4,0": "M",
+    "-3,0": "K",
+    "-2,0": "E",
+    "-1,0": "N",
+    "0,0": "O",
+    "1,0": "T",
+    "2,0": "R",
+    "3,0": "O",
+    "4,0": "N",
+    "3,1": "G",
+    "2,1": "E",
+    "1,1": "O",
+    "0,1": "G",
+    "-1,1": "N",
+    "-2,1": "O",
+    "-3,1": "S",
+    "-4,1": "Y",
+    "-4,2": "H",
+    "-3,2": "A",
+    "-2,2": "D",
+    "-1,2": "J",
+    "0,2": "E",
+    "1,2": "S",
+    "2,2": "P",
+    "1,3": "I",
+    "0,3": "G",
+    "-1,3": "S",
+    "-2,3": "N",
+    "-3,3": "Y",
+    "-4,3": "B",
+    "-4,4": "O",
+    "-3,4": "O",
+    "-2,4": "N",
+    "-1,4": "G",
+    "0,4": "A"
+  },
+  "specialTiles": [
+    {
+      "type": "portal",
+      "role": "entry",
+      "q": 4,
+      "r": -1
+    },
+    {
+      "type": "portal",
+      "role": "exit",
+      "q": 3,
+      "r": 1
+    },
+    {
+      "type": "prism",
+      "q": -2,
+      "r": 3
+    },
+    {
+      "type": "gemEmerald",
+      "q": 2,
+      "r": 2
+    },
+    {
+      "type": "rune",
+      "q": 0,
+      "r": 1
+    },
+    {
+      "type": "digraph",
+      "q": -4,
+      "r": 2,
+      "digraph": "CO"
+    },
+    {
+      "type": "digraph",
+      "q": -1,
+      "r": -2,
+      "digraph": "IN"
+    },
+    {
+      "type": "digraph",
+      "q": -1,
+      "r": -3,
+      "digraph": "NG"
+    }
+  ],
+  "metadata": {
+    "maxPossibleScore": 1844,
+    "minAchievableScore": 1008,
+    "strategicPathCount": 3,
+    "optimalSolutions": [
+      {
+        "words": [
+          "STRENGTHEN",
+          "PICKABACK",
+          "POPPADUM",
+          "KENOTRON",
+          "GEOGNOSY",
+          "HADJES",
+          "PIGSNY",
+          "BOONGA"
+        ],
+        "wordTotal": 2060,
+        "penalty": 0,
+        "finalScore": 2060
+      }
+    ],
+    "optimalPathClues": {
+      "strategy": "optimal",
+      "targetScore": 2060,
+      "wordCount": 8,
+      "clues": [
+        {
+          "wordIndex": 1,
+          "length": 10,
+          "estimatedPoints": 300,
+          "positional": "A 10-letter word sits in the top quadrant",
+          "category": "A familiar everyday word — 10 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 10 letters with 2 vowels"
+            },
+            {
+              "level": 2,
+              "text": "S________N"
+            },
+            {
+              "level": 3,
+              "text": "ST______EN"
+            },
+            {
+              "level": 4,
+              "text": "___E____E_"
+            },
+            {
+              "level": 5,
+              "text": "STRENGTHE_"
+            }
+          ],
+          "features": []
+        },
+        {
+          "wordIndex": 2,
+          "length": 9,
+          "estimatedPoints": 360,
+          "positional": "A 9-letter word uses the NG digraph tile",
+          "category": "A familiar everyday word — 9 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 9 letters with 3 vowels"
+            },
+            {
+              "level": 2,
+              "text": "P_______K"
+            },
+            {
+              "level": 3,
+              "text": "PI_____CK"
+            },
+            {
+              "level": 4,
+              "text": "_I__A_A__"
+            },
+            {
+              "level": 5,
+              "text": "PICKABAC_"
+            }
+          ],
+          "features": [
+            "Uses 2 digraph tiles",
+            "Uses a portal tile"
+          ]
+        },
+        {
+          "wordIndex": 3,
+          "length": 8,
+          "estimatedPoints": 248,
+          "positional": "A 8-letter word sits in the center quadrant",
+          "category": "A familiar everyday word — 8 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 8 letters with 3 vowels"
+            },
+            {
+              "level": 2,
+              "text": "P______M"
+            },
+            {
+              "level": 3,
+              "text": "PO____UM"
+            },
+            {
+              "level": 4,
+              "text": "_O__A_U_"
+            },
+            {
+              "level": 5,
+              "text": "POPPADU_"
+            }
+          ],
+          "features": []
+        },
+        {
+          "wordIndex": 4,
+          "length": 8,
+          "estimatedPoints": 192,
+          "positional": "A 8-letter word sits in the center quadrant",
+          "category": "A familiar everyday word — 8 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 8 letters with 3 vowels"
+            },
+            {
+              "level": 2,
+              "text": "K______N"
+            },
+            {
+              "level": 3,
+              "text": "KE____ON"
+            },
+            {
+              "level": 4,
+              "text": "_E_O__O_"
+            },
+            {
+              "level": 5,
+              "text": "KENOTRO_"
+            }
+          ],
+          "features": []
+        },
+        {
+          "wordIndex": 5,
+          "length": 8,
+          "estimatedPoints": 192,
+          "positional": "A 8-letter word sits in the center quadrant",
+          "category": "A familiar everyday word — 8 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 8 letters with 3 vowels"
+            },
+            {
+              "level": 2,
+              "text": "G______Y"
+            },
+            {
+              "level": 3,
+              "text": "GE____SY"
+            },
+            {
+              "level": 4,
+              "text": "_EO__O__"
+            },
+            {
+              "level": 5,
+              "text": "GEOGNOS_"
+            }
+          ],
+          "features": [
+            "Uses a portal tile"
+          ]
+        },
+        {
+          "wordIndex": 6,
+          "length": 6,
+          "estimatedPoints": 144,
+          "positional": "A 6-letter word uses the CO digraph tile",
+          "category": "A familiar everyday word — 6 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 6 letters with 2 vowels"
+            },
+            {
+              "level": 2,
+              "text": "H____S"
+            },
+            {
+              "level": 3,
+              "text": "HA__ES"
+            },
+            {
+              "level": 4,
+              "text": "_A__E_"
+            },
+            {
+              "level": 5,
+              "text": "HADJE_"
+            }
+          ],
+          "features": [
+            "Uses 1 digraph tile"
+          ]
+        },
+        {
+          "wordIndex": 7,
+          "length": 6,
+          "estimatedPoints": 504,
+          "positional": "A 6-letter word routes through the purple prism",
+          "category": "A familiar everyday word — 6 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 6 letters with 1 vowel"
+            },
+            {
+              "level": 2,
+              "text": "P____Y"
+            },
+            {
+              "level": 3,
+              "text": "PI__NY"
+            },
+            {
+              "level": 4,
+              "text": "_I____"
+            },
+            {
+              "level": 5,
+              "text": "PIGSN_"
+            }
+          ],
+          "features": [
+            "Uses prism for 2× multiplier",
+            "Uses emerald gem"
+          ]
+        },
+        {
+          "wordIndex": 8,
+          "length": 6,
+          "estimatedPoints": 120,
+          "positional": "A 6-letter word runs from lower-left toward bottom",
+          "category": "A familiar everyday word — 6 letters",
+          "hints": [
+            {
+              "level": 1,
+              "text": "Pattern hint: 6 letters with 3 vowels"
+            },
+            {
+              "level": 2,
+              "text": "B____A"
+            },
+            {
+              "level": 3,
+              "text": "BO__GA"
+            },
+            {
+              "level": 4,
+              "text": "_OO__A"
+            },
+            {
+              "level": 5,
+              "text": "BOONG_"
+            }
+          ],
+          "features": []
+        }
+      ]
+    },
+    "difficulty": "easy",
+    "optimalMoves": 7,
+    "averageWordLength": 7.6,
+    "gemDensity": 0.016,
+    "tilesCleared": 53,
+    "tilesRemaining": 8,
+    "tileClearancePercent": 86.9,
+    "fullClear": false,
+    "solutionPath": [
+      "PIGSNY",
+      "STRENGTHEN",
+      "POPPADUM",
+      "PICKABACK",
+      "GEOGNOSY",
+      "DONNOTS",
+      "JAGER"
+    ],
+    "wordPathCoverage": 61,
+    "fullyCoveredByWords": true,
+    "gravitySequence": [
+      "STRENGTHEN",
+      "PICKABACK",
+      "POPPADUM",
+      "KENOTRON",
+      "GEOGNOSY",
+      "HADJES",
+      "PIGSNY",
+      "BOONGA"
+    ],
+    "generatedAt": "2026-06-01T03:05:32.552Z"
+  },
+  "placements": [
+    {
+      "word": "STRENGTHEN",
+      "path": [
+        {
+          "q": 0,
+          "r": -4,
+          "key": "0,-4"
+        },
+        {
+          "q": 1,
+          "r": -4,
+          "key": "1,-4"
+        },
+        {
+          "q": 2,
+          "r": -4,
+          "key": "2,-4"
+        },
+        {
+          "q": 3,
+          "r": -4,
+          "key": "3,-4"
+        },
+        {
+          "q": 4,
+          "r": -4,
+          "key": "4,-4"
+        },
+        {
+          "q": 4,
+          "r": -3,
+          "key": "4,-3"
+        },
+        {
+          "q": 3,
+          "r": -3,
+          "key": "3,-3"
+        },
+        {
+          "q": 2,
+          "r": -3,
+          "key": "2,-3"
+        },
+        {
+          "q": 1,
+          "r": -3,
+          "key": "1,-3"
+        },
+        {
+          "q": 0,
+          "r": -3,
+          "key": "0,-3"
+        }
+      ],
+      "score": 300
+    },
+    {
+      "word": "PICKABACK",
+      "path": [
+        {
+          "q": -1,
+          "r": -3,
+          "key": "-1,-3"
+        },
+        {
+          "q": -2,
+          "r": -2,
+          "key": "-2,-2"
+        },
+        {
+          "q": -1,
+          "r": -2,
+          "key": "-1,-2"
+        },
+        {
+          "q": 0,
+          "r": -2,
+          "key": "0,-2"
+        },
+        {
+          "q": 1,
+          "r": -2,
+          "key": "1,-2"
+        },
+        {
+          "q": 2,
+          "r": -2,
+          "key": "2,-2"
+        },
+        {
+          "q": 3,
+          "r": -2,
+          "key": "3,-2"
+        },
+        {
+          "q": 4,
+          "r": -2,
+          "key": "4,-2"
+        },
+        {
+          "q": 4,
+          "r": -1,
+          "key": "4,-1"
+        }
+      ],
+      "score": 360
+    },
+    {
+      "word": "POPPADUM",
+      "path": [
+        {
+          "q": 3,
+          "r": -1,
+          "key": "3,-1"
+        },
+        {
+          "q": 2,
+          "r": -1,
+          "key": "2,-1"
+        },
+        {
+          "q": 1,
+          "r": -1,
+          "key": "1,-1"
+        },
+        {
+          "q": 0,
+          "r": -1,
+          "key": "0,-1"
+        },
+        {
+          "q": -1,
+          "r": -1,
+          "key": "-1,-1"
+        },
+        {
+          "q": -2,
+          "r": -1,
+          "key": "-2,-1"
+        },
+        {
+          "q": -3,
+          "r": -1,
+          "key": "-3,-1"
+        },
+        {
+          "q": -4,
+          "r": 0,
+          "key": "-4,0"
+        }
+      ],
+      "score": 248
+    },
+    {
+      "word": "KENOTRON",
+      "path": [
+        {
+          "q": -3,
+          "r": 0,
+          "key": "-3,0"
+        },
+        {
+          "q": -2,
+          "r": 0,
+          "key": "-2,0"
+        },
+        {
+          "q": -1,
+          "r": 0,
+          "key": "-1,0"
+        },
+        {
+          "q": 0,
+          "r": 0,
+          "key": "0,0"
+        },
+        {
+          "q": 1,
+          "r": 0,
+          "key": "1,0"
+        },
+        {
+          "q": 2,
+          "r": 0,
+          "key": "2,0"
+        },
+        {
+          "q": 3,
+          "r": 0,
+          "key": "3,0"
+        },
+        {
+          "q": 4,
+          "r": 0,
+          "key": "4,0"
+        }
+      ],
+      "score": 192
+    },
+    {
+      "word": "GEOGNOSY",
+      "path": [
+        {
+          "q": 3,
+          "r": 1,
+          "key": "3,1"
+        },
+        {
+          "q": 2,
+          "r": 1,
+          "key": "2,1"
+        },
+        {
+          "q": 1,
+          "r": 1,
+          "key": "1,1"
+        },
+        {
+          "q": 0,
+          "r": 1,
+          "key": "0,1"
+        },
+        {
+          "q": -1,
+          "r": 1,
+          "key": "-1,1"
+        },
+        {
+          "q": -2,
+          "r": 1,
+          "key": "-2,1"
+        },
+        {
+          "q": -3,
+          "r": 1,
+          "key": "-3,1"
+        },
+        {
+          "q": -4,
+          "r": 1,
+          "key": "-4,1"
+        }
+      ],
+      "score": 192
+    },
+    {
+      "word": "HADJES",
+      "path": [
+        {
+          "q": -4,
+          "r": 2,
+          "key": "-4,2"
+        },
+        {
+          "q": -3,
+          "r": 2,
+          "key": "-3,2"
+        },
+        {
+          "q": -2,
+          "r": 2,
+          "key": "-2,2"
+        },
+        {
+          "q": -1,
+          "r": 2,
+          "key": "-1,2"
+        },
+        {
+          "q": 0,
+          "r": 2,
+          "key": "0,2"
+        },
+        {
+          "q": 1,
+          "r": 2,
+          "key": "1,2"
+        }
+      ],
+      "score": 144
+    },
+    {
+      "word": "PIGSNY",
+      "path": [
+        {
+          "q": 2,
+          "r": 2,
+          "key": "2,2"
+        },
+        {
+          "q": 1,
+          "r": 3,
+          "key": "1,3"
+        },
+        {
+          "q": 0,
+          "r": 3,
+          "key": "0,3"
+        },
+        {
+          "q": -1,
+          "r": 3,
+          "key": "-1,3"
+        },
+        {
+          "q": -2,
+          "r": 3,
+          "key": "-2,3"
+        },
+        {
+          "q": -3,
+          "r": 3,
+          "key": "-3,3"
+        }
+      ],
+      "score": 126
+    },
+    {
+      "word": "BOONGA",
+      "path": [
+        {
+          "q": -4,
+          "r": 3,
+          "key": "-4,3"
+        },
+        {
+          "q": -4,
+          "r": 4,
+          "key": "-4,4"
+        },
+        {
+          "q": -3,
+          "r": 4,
+          "key": "-3,4"
+        },
+        {
+          "q": -2,
+          "r": 4,
+          "key": "-2,4"
+        },
+        {
+          "q": -1,
+          "r": 4,
+          "key": "-1,4"
+        },
+        {
+          "q": 0,
+          "r": 4,
+          "key": "0,4"
+        }
+      ],
+      "score": 120
+    }
+  ]
+}

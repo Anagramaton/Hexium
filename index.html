@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" class="colorblind">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>HEXACORE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Knewave&family=Limelight&family=Rubik+Iso&family=Freckle+Face&family=Notable&family=Creepster&family=Rubik+Bubbles&family=Rubik+Dirt&family=Rubik+Vinyl&family=Akaya+Kanadaka&family=Luckiest+Guy&family=Wellfleet&family=Turret+Road:wght@200;300;400;500;700;800&family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Black+Han+Sans&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./modal.css" />
+  <link rel="stylesheet" href="./mobile.css" media="(max-width: 640px)">
+  <link rel="stylesheet" href="./howtoModal.css">
+  <link rel="stylesheet" href="./hexacore.css">
+  <link rel="stylesheet" href="./hexacoreProfileNew.css">
+</head>
+<body data-theme="dark">
+  <div id="splash-screen" role="dialog" aria-modal="true" aria-labelledby="splash-title">
+    <div id="splash-content">
+      <h1 id="splash-title">HEXACORE</h1>
+      <p id="splash-tagline">CHAIN WORDS. MASTER TILES. CONQUER THE HEX.</p>
+      <button id="splash-signup-btn" type="button">✨ SIGN UP</button>
+      <p id="splash-lb-note">Sign up to track stats and submit leaderboard scores.</p>
+      <button id="splash-hexacore-play-btn" type="button">PLAY</button>
+      <p id="splash-hexacore-note">ENDLESS · DAILY · CAMPAIGN</p>
+      <button id="splash-hexacore-btn" type="button" role="heading" aria-level="2">HEXACORE</button>
+    </div>
+  </div>
+
+  <h1 id="game-title">HEXACORE</h1>
+  <h1 id="game-title-mirror" aria-hidden="true">HEXACORE</h1>
+
+  <div id="top-btn-bar" class="hx-standalone-topbar">
+    <div class="hx-standalone-spacer" aria-hidden="true"></div>
+    <div id="settings-wrap">
+      <button id="settings-btn" aria-haspopup="true" aria-label="Settings">MENU</button>
+      <div id="settings-menu" hidden>
+        <button id="set-name-btn" type="button"><span class="setting-icon">👤</span> <span class="setting-label">SET NAME</span></button>
+      </div>
+    </div>
+    <div class="hx-standalone-spacer" aria-hidden="true"></div>
+  </div>
+
+  <div id="current-word-display">
+    <span id="current-word"></span>
+  </div>
+
+  <div id="score-display"><span class="score-num">0</span><span class="score-pts"> pts</span></div>
+
+  <main id="game-container">
+    <svg id="hex-grid" width="100%" height="100%" viewBox="0 0 1000 1000" aria-label="Hexacore letter hex grid"></svg>
+  </main>
+
+<!-- HEXACORE HOW TO PLAY MODAL -->
+  <div id="hx-howto-modal" class="rom rom--hidden" role="dialog" aria-modal="true" aria-labelledby="hx-howto-title">
+    <div class="rom__backdrop"></div>
+
+    <div class="rom__dialog">
+      <h2 id="hx-howto-title">How to Play — Hexacore</h2>
+
+      <!-- Pages -->
+      <div id="hx-howto-pagewrap">
+
+<!-- PAGE 0 — GEM TILES -->
+        <section class="howto-page" data-page="0">
+          <h3>GEM TILES</h3>
+          <p>Longer words reward rarer gems that multiply your score. Gems stack multiplicatively.</p>
+          <div class="hx-howto-tile-row">
+            <!-- EMERALD -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-emerald" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#16a34a"/>
+                    <stop offset="100%" stop-color="#4ade80"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-emerald)" stroke="#16a34a" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#22c55e">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×2 EMERALD</span>
+            </div>
+            <!-- GOLD -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-gold" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#92400e"/>
+                    <stop offset="50%"  stop-color="#eab308"/>
+                    <stop offset="100%" stop-color="#fef08a"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-gold)" stroke="#92400e" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#fef08a">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×3 GOLD</span>
+            </div>
+            <!-- SAPPHIRE -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-sapphire" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#1d4ed8"/>
+                    <stop offset="100%" stop-color="#93c5fd"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-sapphire)" stroke="#1d4ed8" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#60a5fa">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×4 SAPPHIRE</span>
+            </div>
+            <!-- PEARL -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-pearl" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#d4c5a9"/>
+                    <stop offset="100%" stop-color="#ffffff"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-pearl)" stroke="#d4c5a9" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#f5f0e8">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×5 PEARL</span>
+            </div>
+            <!-- TANZANITE -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-tanzanite" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#020617"/>
+                    <stop offset="50%"  stop-color="#1e3a8a"/>
+                    <stop offset="100%" stop-color="#60a5fa"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-tanzanite)" stroke="#1e3a8a" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#60a5fa">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×6 TANZANITE</span>
+            </div>
+            <!-- RUBY -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-ruby" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#7f1d1d"/>
+                    <stop offset="100%" stop-color="#ef4444"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-ruby)" stroke="#7f1d1d" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#ef4444">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×7 RUBY</span>
+            </div>
+            <!-- DIAMOND -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-diamond" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#334155"/>
+                    <stop offset="50%"  stop-color="#94a3b8"/>
+                    <stop offset="100%" stop-color="#f1f5f9"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-diamond)" stroke="#94a3b8" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#f1f5f9">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×8 DIAMOND</span>
+            </div>
+            <!-- AQUAMARINE -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-aquamarine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#0891b2"/>
+                    <stop offset="100%" stop-color="#67e8f9"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-aquamarine)" stroke="#0891b2" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#67e8f9">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×9 AQUAMARINE</span>
+            </div>
+            <!-- TOPAZ -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-topaz" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#7c2d12"/>
+                    <stop offset="50%"  stop-color="#ea580c"/>
+                    <stop offset="100%" stop-color="#fdba74"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-topaz)" stroke="#7c2d12" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#fdba74">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×10 TOPAZ</span>
+            </div>
+            <!-- OPAL -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-opal" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#c4b5fd"/>
+                    <stop offset="100%" stop-color="#ffffff"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-opal)" stroke="#c4b5fd" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#c4b5fd">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×11 OPAL</span>
+            </div>
+            <!-- IMPERIAL JADE -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-imperialjade" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#064e3b"/>
+                    <stop offset="100%" stop-color="#34d399"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-imperialjade)" stroke="#064e3b" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#34d399">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×12 IMP. JADE</span>
+            </div>
+            <!-- ALEXANDRITE -->
+            <div class="hx-howto-tile-item">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-alexandrite" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#4a044e"/>
+                    <stop offset="33%"  stop-color="#a21caf"/>
+                    <stop offset="67%"  stop-color="#e879f9"/>
+                    <stop offset="100%" stop-color="#fce7f3"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-alexandrite)" stroke="#a21caf" stroke-width="1.5"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#e879f9">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">×13 ALEXANDRITE</span>
+            </div>
+          </div>
+          <p>Using multiple gems of the same type gives a count bonus (e.g. 3 Emeralds → ×6 instead of ×2).</p>
+        </section>
+
+<!-- PAGE 1 — SPECIAL TILES -->
+        <section class="howto-page" data-page="1" hidden>
+          <h3>SPECIAL TILES</h3>
+          <div class="hx-howto-tile-row">
+            <!-- EMBER: volcanic crimson → solar orange → gold -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--ember">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-ember" x1="0.2" y1="1" x2="0.8" y2="0">
+                    <stop offset="0%"   stop-color="#260000"/>
+                    <stop offset="30%"  stop-color="#b91c1c"/>
+                    <stop offset="60%"  stop-color="#f97316"/>
+                    <stop offset="85%"  stop-color="#fbbf24"/>
+                    <stop offset="100%" stop-color="#fef3c7"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-ember-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.50"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Main body -->
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-ember)" stroke="#fb923c" stroke-width="2"/>
+                <!-- Inner rim shine -->
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
+                <!-- Top highlight overlay -->
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-ember-shine)"/>
+                <text x="30" y="35" text-anchor="middle" font-size="20" fill="#fef3c7">🔥</text>
+              </svg>
+              <span class="hx-howto-tile-label">EMBER</span>
+            </div>
+            <!-- PRISM: deep violet → electric rose -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--prism">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-prism" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#1a0040"/>
+                    <stop offset="45%"  stop-color="#7c3aed"/>
+                    <stop offset="100%" stop-color="#db2777"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-prism-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.45"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-prism)" stroke="#f472b6" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-prism-shine)"/>
+                <text x="30" y="36" text-anchor="middle" font-size="18" fill="#fde68a" font-weight="bold">✦</text>
+              </svg>
+              <span class="hx-howto-tile-label">PRISM</span>
+            </div>
+            <!-- RUNE: midnight → deep indigo → electric violet -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--rune">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-rune" x1="0.5" y1="1" x2="0.5" y2="0">
+                    <stop offset="0%"   stop-color="#020617"/>
+                    <stop offset="50%"  stop-color="#312e81"/>
+                    <stop offset="100%" stop-color="#6d28d9"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-rune-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.38"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-rune)" stroke="#a78bfa" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-rune-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="22" fill="#c4b5fd" font-weight="bold" font-family="monospace">?</text>
+              </svg>
+              <span class="hx-howto-tile-label">RUNE</span>
+            </div>
+            <!-- DIGRAPH: deep teal → emerald → electric lime -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--digraph">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-digraph" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%"   stop-color="#022c22"/>
+                    <stop offset="55%"  stop-color="#059669"/>
+                    <stop offset="100%" stop-color="#34d399"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-digraph-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.42"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-digraph)" stroke="#6ee7b7" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-digraph-shine)"/>
+                <text x="30" y="31" text-anchor="middle" font-size="13" fill="#ffffff" font-weight="bold" font-family="monospace">HE</text>
+                <text x="30" y="43" text-anchor="middle" font-size="9" fill="#6ee7b7">❋</text>
+              </svg>
+              <span class="hx-howto-tile-label">DIGRAPH</span>
+            </div>
+            <!-- AMETHYST: obsidian → royal purple → electric fuchsia -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--amethyst">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-amethyst" x1="1" y1="1" x2="0" y2="0">
+                    <stop offset="0%"   stop-color="#1a0028"/>
+                    <stop offset="50%"  stop-color="#7e22ce"/>
+                    <stop offset="100%" stop-color="#d946ef"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-amethyst-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.42"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-amethyst)" stroke="#e879f9" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-amethyst-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="20" fill="#f0abfc" font-weight="bold">◈</text>
+              </svg>
+              <span class="hx-howto-tile-label">AMETHYST</span>
+            </div>
+            <!-- SELENITE: deep ocean → arctic teal → crystal ice -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--selenite">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-selenite" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%"   stop-color="#030712"/>
+                    <stop offset="35%"  stop-color="#0c4a6e"/>
+                    <stop offset="70%"  stop-color="#0ea5e9"/>
+                    <stop offset="100%" stop-color="#e0f2fe"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-selenite-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.55"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-selenite)" stroke="#7dd3fc" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-selenite-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="18" fill="#e0f2fe" font-weight="bold">⇌</text>
+              </svg>
+              <span class="hx-howto-tile-label">SELENITE</span>
+            </div>
+          </div>
+          <ul>
+            <li><strong>🔥 EMBER</strong> — Appears in the top row, and also appears whenever you submit a 6+ letter word. Extra embers can appear when you level up. Advances downward after each word. If it reaches the bottom — game over. Consume it in a word to destroy it. Using an Ember also rewards bonus gems equal to the word length bonus.</li>
+            <li><strong>✦ PRISM</strong> — Doubles the word score (×2).</li>
+            <li><strong>✦ RUNE</strong> — A wildcard. Tap it first to choose any letter, then chain it in your word.</li>
+            <li><strong>❋ DIGRAPH</strong> — A double-letter tile. Both letters contribute their point values. Counts as 2 letters toward word length.</li>
+            <li><strong>◈ AMETHYST</strong> — 🔮 A rare crystalline tile. Use it in a 5+ letter word to collect an Amethyst. Spend it to change any tile's letter on the board. Also advances downward each turn like an Ember — but if it reaches the bottom it converts to a random letter tile instead of ending the game.</li>
+            <li><strong>⇌ SELENITE</strong> — 🌙 A mystical moonstone tile. Use it in a 5+ letter word to collect a Selenite. Spend it to swap any two tiles on the board. Also advances downward each turn like an Ember — but if it reaches the bottom it converts to a random letter tile instead of ending the game.</li>
+          </ul>
+        </section>
+
+<!-- PAGE 2 — ACHIEVEMENT TILES -->
+        <section class="howto-page" data-page="2" hidden>
+          <h3>ACHIEVEMENT TILES</h3>
+          <p>These five rare tiles spawn as rewards for hard accomplishments. They display their actual letter value on the board. Use one in a <strong>5+ letter word</strong> to collect it, then activate it from the power-up bar.</p>
+          <div class="hx-howto-tile-row">
+            <!-- ORACLE -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--oracle">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-oracle" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%"   stop-color="#1e293b"/>
+                    <stop offset="45%"  stop-color="#64748b"/>
+                    <stop offset="80%"  stop-color="#cbd5e1"/>
+                    <stop offset="100%" stop-color="#f8fafc"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-oracle-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.50"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-oracle)" stroke="#cbd5e1" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-oracle-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="18" fill="#f8fafc" font-weight="bold">⊙</text>
+              </svg>
+              <span class="hx-howto-tile-label">ORACLE</span>
+            </div>
+            <!-- BEACON -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--beacon">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-beacon" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%"   stop-color="#451a03"/>
+                    <stop offset="40%"  stop-color="#b45309"/>
+                    <stop offset="75%"  stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#fef08a"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-beacon-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.45"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-beacon)" stroke="#f59e0b" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-beacon-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="18" fill="#fef08a" font-weight="bold">◆</text>
+              </svg>
+              <span class="hx-howto-tile-label">BEACON</span>
+            </div>
+            <!-- ECLIPSE -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--eclipse">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-eclipse" x1="0.5" y1="1" x2="0.5" y2="0">
+                    <stop offset="0%"   stop-color="#020617"/>
+                    <stop offset="45%"  stop-color="#1c1917"/>
+                    <stop offset="80%"  stop-color="#292524"/>
+                    <stop offset="100%" stop-color="#4c1d95"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-eclipse-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.28"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-eclipse)" stroke="#7c3aed" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.20)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-eclipse-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="20" fill="#c4b5fd" font-weight="bold">☽</text>
+              </svg>
+              <span class="hx-howto-tile-label">ECLIPSE</span>
+            </div>
+            <!-- LODESTONE -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--lodestone">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-lodestone" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%"   stop-color="#18181b"/>
+                    <stop offset="40%"  stop-color="#3f3f46"/>
+                    <stop offset="75%"  stop-color="#a1a1aa"/>
+                    <stop offset="100%" stop-color="#e4e4e7"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-lodestone-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.40"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-lodestone)" stroke="#a1a1aa" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-lodestone-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="18" fill="#e4e4e7" font-weight="bold">⬡</text>
+              </svg>
+              <span class="hx-howto-tile-label">LODESTONE</span>
+            </div>
+            <!-- LEXICON -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--lexicon">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-lexicon" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#dc2626"/>
+                    <stop offset="20%"  stop-color="#ea580c"/>
+                    <stop offset="40%"  stop-color="#16a34a"/>
+                    <stop offset="60%"  stop-color="#2563eb"/>
+                    <stop offset="80%"  stop-color="#7c3aed"/>
+                    <stop offset="100%" stop-color="#db2777"/>
+                  </linearGradient>
+                  <linearGradient id="hx-ht-lexicon-shine" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.45"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-lexicon)" stroke="#f9fafb" stroke-width="2"/>
+                <polygon points="30,7 49,18 49,41 30,53 11,41 11,18" fill="none" stroke="rgba(255,255,255,0.40)" stroke-width="1"/>
+                <polygon points="30,5 51,17 51,32 9,32 9,17" fill="url(#hx-ht-lexicon-shine)"/>
+                <text x="30" y="37" text-anchor="middle" font-size="20" fill="#ffffff" font-weight="bold">∞</text>
+              </svg>
+              <span class="hx-howto-tile-label">LEXICON</span>
+            </div>
+          </div>
+          <ul>
+            <li><strong>⊙ ORACLE</strong> — <em>Longest Word Hunter</em>: unlocks when you submit a 9-letter word. Activate to highlight all tiles forming the longest possible word on the board for 5 seconds.</li>
+            <li><strong>◆ BEACON</strong> — <em>Score Master</em>: unlocks when you score 10,000+ points in a single word. Activate to reveal the highest-scoring word currently available on the board.</li>
+            <li><strong>☽ ECLIPSE</strong> — <em>Portal Traveler</em>: unlocks after using the portal in 3 different words. Activate to invert letter point values for your next word (common letters worth more, rare letters worth less).</li>
+            <li><strong>⬡ LODESTONE</strong> — <em>Gem Collector</em>: unlocks when you use 5 different gem types in one word. Activate to add +1 to the score multiplier bonus for your next word.</li>
+            <li><strong>∞ LEXICON</strong> — <em>Endurance Master</em>: unlocks after submitting 100 words in a session. <strong>One-time use</strong> — opens a panel showing the top 5 highest-scoring words on the current board.</li>
+          </ul>
+          <p style="margin-top:0.5rem; font-size:0.8rem; color:rgba(203,213,225,0.7)">Each achievement tile type can only have one active on the board at a time — once collected, it can spawn again.</p>
+        </section>
+
+<!-- PAGE 3 — PORTALS -->
+        <section class="howto-page" data-page="3" hidden>
+          <h3>PORTALS</h3>
+          <div class="hx-howto-tile-row">
+            <!-- PORTAL ENTRY -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--portal">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-portal-a" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#7b2ff7"/>
+                    <stop offset="100%" stop-color="#e040fb"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-portal-a)" stroke="#e040fb" stroke-width="1.5"/>
+                <text x="30" y="37" text-anchor="middle" font-size="20" fill="#e040fb">◈</text>
+              </svg>
+              <span class="hx-howto-tile-label">ENTRY ◈</span>
+            </div>
+            <!-- PORTAL EXIT -->
+            <div class="hx-howto-tile-item hx-howto-tile-item--portal">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="hx-ht-portal-b" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stop-color="#7b2ff7"/>
+                    <stop offset="100%" stop-color="#e040fb"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="url(#hx-ht-portal-b)" stroke="#e040fb" stroke-width="1.5"/>
+                <text x="30" y="37" text-anchor="middle" font-size="20" fill="#e040fb">◉</text>
+              </svg>
+              <span class="hx-howto-tile-label">EXIT ◉</span>
+            </div>
+          </div>
+          <p>After every <strong>10 words</strong> submitted, two corner tiles transform into a portal pair — one entry (◈) and one exit (◉). Chain through both in the same word to link non-adjacent tiles. The portal closes after 5 words or when a portal tile is consumed.</p>
+        </section>
+
+<!-- PAGE 4 — SCORING & XP -->
+        <section class="howto-page" data-page="4" hidden>
+          <h3>SCORING &amp; XP</h3>
+          <p><strong>Word score</strong> = (sum of letter points) × length multiplier × gem multipliers × Prism bonus.</p>
+          <div class="hx-howto-table-wrap">
+            <table class="hx-howto-table">
+              <thead><tr><th>Length</th><th>Multiplier</th></tr></thead>
+              <tbody>
+                <tr><td>4</td><td>×2</td></tr>
+                <tr><td>5</td><td>×5</td></tr>
+                <tr><td>6</td><td>×6</td></tr>
+                <tr><td>7</td><td>×7</td></tr>
+                <tr><td>8+</td><td>×(length)</td></tr>
+              </tbody>
+            </table>
+            <table class="hx-howto-table">
+              <thead><tr><th>Letter</th><th>Pts</th></tr></thead>
+              <tbody>
+                <tr><td>A E I O</td><td>2</td></tr>
+                <tr><td>U R S T L N</td><td>3</td></tr>
+                <tr><td>D H Y G</td><td>4</td></tr>
+                <tr><td>C M P</td><td>5</td></tr>
+                <tr><td>K</td><td>6</td></tr>
+                <tr><td>B F</td><td>7</td></tr>
+                <tr><td>V</td><td>8</td></tr>
+                <tr><td>W J</td><td>9</td></tr>
+                <tr><td>Q X Z</td><td>10</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>✨ XP</strong> — Every word earns XP equal to its word score ÷ 10 (min 1). XP accumulates across all sessions and never resets.</li>
+            <li><strong>⚡ Player Level</strong> — Levels 1–11 have fixed thresholds; beyond Level 11 each level requires +100,000 XP. Your level is shown in the top bar.</li>
+            <li><strong>💎 Tier Challenges</strong> — Tap your level badge to view SPARK → BLAZE → INFERNO → ASCENDANT challenges. Complete them for bonus XP.</li>
+            <li><strong>✦ Prism bonus</strong> — Prism tile doubles the final word score.</li>
+            <li><strong>◆ Gem stacking</strong> — Multiple gems of the same type are additive (3 Emeralds = ×6). Different gem types multiply together.</li>
+          </ul>
+        </section>
+
+<!-- PAGE 5 — QUESTS & POWER-UPS -->
+        <section class="howto-page" data-page="5" hidden>
+          <h3>QUESTS &amp; POWER-UPS</h3>
+          <p>Open the <strong>📋 Quests</strong> button to see today's challenges and this week's quest. Completing them earns bonus XP that is added to your total immediately.</p>
+          <ul>
+            <li><strong>📅 Daily Quests</strong> — Three new quests each day (midnight UTC). Examples: submit 10 words, use 5 Ember tiles, score 10,000+ points.</li>
+            <li><strong>🗓 Weekly Quest</strong> — One harder quest per week (resets Monday UTC). Rewards up to 1,000 XP.</li>
+            <li><strong>🎁 Claiming rewards</strong> — Tap a completed quest item to claim its XP reward. Unclaimed rewards persist until you collect them.</li>
+          </ul>
+          <p style="margin-top:0.6rem"><strong>Power-Up tiles</strong> give you active abilities:</p>
+          <ul>
+            <li><strong>◈ Amethyst</strong> — Use it in a 5+ letter word to collect one. Then tap the <em>Amethyst</em> power-up button (top-left) and tap any tile on the board to change its letter.</li>
+            <li><strong>⇌ Selenite</strong> — Use it in a 5+ letter word to collect one. Then tap the <em>Selenite</em> power-up button (top-right) and tap two tiles to swap their positions.</li>
+            <li>Both power-up tiles also advance downward each turn like Embers — but reaching the bottom converts them to a regular letter tile instead of ending the game.</li>
+          </ul>
+          <p style="margin-top:0.6rem"><strong>Achievement Power-Ups</strong> — five rare tiles that spawn only when you reach specific milestones. See the next page for details!</p>
+        </section>
+
+      </div><!-- /hx-howto-pagewrap -->
+
+      <!-- Controls -->
+      <div class="howto-controls">
+        <button id="hx-howto-prev" type="button" aria-label="Previous page">Back</button>
+        <div id="hx-howto-dots" class="howto-dots" aria-label="Hexacore how to page navigation"></div>
+        <button id="hx-howto-next" type="button" aria-label="Next page">Next</button>
+        <button id="hx-howto-close" type="button" aria-label="Close how to">Close</button>
+      </div>
+    </div><!-- /rom__dialog -->
+  </div><!-- /#hx-howto-modal -->
+
+  
+
+  <div id="alert-modal" class="alert-modal hidden">
+    <div class="alert-box">
+      <p id="alert-text"></p>
+      <button id="alert-ok">OK</button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      try {
+        const KEY = 'hexacore_colorblind';
+        const stored = localStorage.getItem(KEY);
+        if (stored === '0') {
+          document.documentElement.classList.remove('colorblind');
+        } else {
+          document.documentElement.classList.add('colorblind');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <script type="module" src="./hexacoreHowTo.js"></script>
+  <script type="module" src="./hexacore.js"></script>
+  <script type="module" src="./hexacoreSettings.js"></script>
+
+  <audio id="sfxUnlock" src="./audio/zapsplat_musical_piano_insides_strings_strum_002_101394.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxAlert" src="./audio/alert.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSuccess" src="./audio/ohyeahh.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxFunk" src="./audio/prettyjohn1-funk-funky-music_32sec-483398.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxGemCollect" src="./audio/zapsplat_multimedia_game_sound_collect_twinkle_sparkle_glissando_gem_stone_award_109027.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe1" src="./audio/ascend1A.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe2" src="./audio/ascend1B.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe3" src="./audio/ascend1C.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe4" src="./audio/ascend1D.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe5" src="./audio/ascend1E.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe6" src="./audio/ascend1F.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe7" src="./audio/ascend1G.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe8" src="./audio/ascend1H.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe9" src="./audio/ascend1I.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe10" src="./audio/ascend1J.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe11" src="./audio/ascend1K.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe12" src="./audio/ascend1L.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe13" src="./audio/ascend1M.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe14" src="./audio/ascend1N.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe15" src="./audio/ascend1O.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe16" src="./audio/ascend1P.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe17" src="./audio/ascend1Q.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe18" src="./audio/ascend1R.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe19" src="./audio/ascend1S.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe20" src="./audio/ascend1T.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe21" src="./audio/ascend1U.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe22" src="./audio/ascend1V.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe23" src="./audio/ascend1W.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe24" src="./audio/ascend1X.mp3" preload="auto" aria-hidden="true"></audio>
+  <audio id="sfxSwipe25" src="./audio/ascend1Y.mp3" preload="auto" aria-hidden="true"></audio>
+</body>
+</html>

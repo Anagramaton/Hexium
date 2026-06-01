@@ -1,0 +1,184 @@
+/* ── Mobile top-btn-bar ───────────────────────────────────────── */
+@media (max-width: 640px) {
+  #top-btn-bar {
+    top: clamp(10px, 3vh, 18px);
+    gap: 0;
+  }
+  .side-toggle {
+    position: static;
+    writing-mode: initial;
+    text-orientation: initial;
+    width: auto;
+    height: auto;
+    min-height: 44px;
+    min-width: 54px;
+    padding: 6px 10px;
+    letter-spacing: 0.1em;
+    transition: all 0.15s ease;
+    background: rgba(26, 26, 46, 0.88);
+    color: #e2d9ff;
+    border: 1.5px solid rgba(167, 139, 250, 0.5);
+    font-size: clamp(0.65rem, 3.5vw, 0.85rem);
+  }
+  .side-toggle .vword {
+    color: #e2d9ff;
+    font-size: clamp(0.65rem, 3.5vw, 0.85rem);
+    letter-spacing: 0.08em;
+  }
+  #settings-btn {
+    font-size: clamp(0.6rem, 3vw, 0.8rem);
+    min-width: 50px;
+    min-height: 44px;
+    padding: 5px 8px;
+    background: rgba(26, 26, 46, 0.88);
+    color: #e2d9ff;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+  }
+  #settings-menu {
+    min-width: 180px;
+    z-index: 1500;
+  }
+  body:has(#left-panel.open) #toggle-right { display: none; }
+  body:has(#right-panel.open) #toggle-left { display: none; }
+}
+
+@media (max-width: 640px) {
+  #top-btn-bar { z-index: 1200; }
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+
+/* ── How-to modal ───────────────────────────────────────────────── */
+#howto-modal .rom__dialog {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+#howto-pagewrap {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 10px 18px;
+}
+
+#howto-pagewrap .howto-page:last-child { padding-bottom: 16px; }
+
+.howto-controls {
+  flex: 0 0 auto;
+  position: sticky;
+  bottom: 0;
+}
+
+@media (max-width: 640px) {
+  #howto-modal .rom__dialog { max-height: 92vh; }
+}
+
+/* ── Hexacore settings/leaderboards scroll on mobile ─────────────── */
+@media (max-width: 640px) {
+  #hx-settings-box,
+  #hx-leaderboards-box {
+    max-width: 100vw;
+  }
+}
+
+/* ── Panels ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  #left-panel .panel-content,
+  #right-panel .panel-content {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    inset: 0;
+  }
+
+  #left-panel .panel-content * { max-width: 100%; }
+}
+
+/* ── Score display: centered bottom zone on mobile ──────────────── */
+@media (max-width: 640px) {
+  #score-display {
+    position: fixed;
+    bottom: clamp(14px, calc(env(safe-area-inset-bottom, 0px) + 2vh), 28px);
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    z-index: 900;
+    display: block;
+    text-align: center;
+    width: max-content;
+    pointer-events: none;
+    background: none;
+    clip-path: none;
+    filter: none;
+    padding: 0;
+  }
+  .score-num {
+    font-size: clamp(1.2rem, 6vw, 1.8rem);
+  }
+  .score-pts {
+    font-size: clamp(0.6rem, 2.8vw, 0.9rem);
+  }
+}
+
+/* ── Current word display: centered bottom zone on mobile ───────── */
+@media (max-width: 640px) {
+  #current-word-display {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(56px, 10vh, 82px);
+    top: auto;
+    z-index: 900;
+    display: block;
+    text-align: center;
+    font-size: clamp(0.95rem, 5vw, 1.4rem);
+    font-family: 'Notable', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    max-width: 80vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+  }
+}
+
+/* ── Word score preview: centered above word display on mobile ───── */
+@media (max-width: 640px) {
+  #word-score-preview {
+    bottom: clamp(98px, 16vh, 130px);
+    font-size: clamp(0.9rem, 4.5vw, 1.2rem);
+  }
+}
+
+/* ── Hex grid ───────────────────────────────────────────────────── */
+#hex-grid {
+  touch-action: none;
+}
+
+/* ── Round-over modal: mobile tweaks ────────────────────────────── */
+@media (max-width: 640px) {
+  .rom__dismiss-hint {
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ── Game title watermark: portrait angle preserved ─────────────── */
+@media (max-width: 640px) {
+  #game-title,
+  #game-title-mirror {
+    font-size: clamp(28vw, 35vmax, 50vw);
+  }
+  #game-title {
+    transform: translate(-50%, -50%) rotate(-52deg);
+  }
+  #game-title-mirror {
+    transform: translate(-50%, -50%) rotate(52deg);
+  }
+}
