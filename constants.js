@@ -1,7 +1,7 @@
 // — Layout —
-export const GRID_RADIUS   = 4;           
-export const HEX_RADIUS    = 35;          
-export const SVG_NS        = 'http://www.w3.org/2000/svg';
+export const GRID_RADIUS = 4;
+export const HEX_RADIUS  = 35;
+export const SVG_NS      = 'http://www.w3.org/2000/svg';
 
 // — Colours —
 export const DEFAULT_TILE_COLOR = '#e0e0e0';
@@ -25,11 +25,12 @@ export const letterFrequencies = [
   'P','P','P','P','H','H','H','H','V','V','V','V',
   'W','W','W','W','Y','Y','Y','Y','K','K','K','K',
   'X','X','X','J','J','J','Z','Z','Z','F','F','F',
-  'Q','Q'
+  'Q','Q',
 ];
 
 // — Scoring Multipliers —
 export const reuseMultipliers = { 1: 1, 2: 2, 3: 4 };
 export const anagramMultiplier = 5;
-export const lengthMultipliers = { 5: 3, 6: 4, 7: 5, 8: 6, 9: 7, 10: 10
+export const lengthMultipliers = {
+  5: 3, 6: 4, 7: 5, 8: 6, 9: 7, 10: 10,
 };
