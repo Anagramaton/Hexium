@@ -20,7 +20,7 @@
       ]
     },
     {
-      "source": "/(wordList_.*\\.js|boardData\\.js|prebuiltBoards\\.json|audio/.*)",
+      "source": "/(wordList_.*\\.js|boardData\\.js|prebuiltBoards\\.json)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -29,7 +29,25 @@
       ]
     },
     {
-      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|otf|mp3|wav|ogg))",
+      "source": "/audio/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/((?!wordList_.*\\.js$|boardData\\.js$).+\\.js)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(css|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|otf))",
       "headers": [
         {
           "key": "Cache-Control",
