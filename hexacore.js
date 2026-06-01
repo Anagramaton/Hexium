@@ -1,4 +1,4 @@
-// hexacore.js — Hexacore endless word game mode for Anagramaton
+// hexacore.js — standalone Hexacore word game
 
 /**
  * BREAKPOINT RULE — ALWAYS REQUIRED FOR EVERY PR
@@ -4073,7 +4073,7 @@ function setupPointerEvents() {
     if (!hxPointerDown) return;
     hxPointerDown = false;
     // Auto-submit the word when the drag ends
-    if (hxState.active && !hxState.gameOver && hxSelected.length > 0) {
+    if (hxSelected.length > 0) {
       submitHexacoreWord();
     }
   }
@@ -5248,7 +5248,6 @@ function triggerGameOver() {
   cancelAmethystTargeting();
   cancelSeleniteTargeting();
   clearSelection();
-  document.body.classList.remove('hx-active');
 
   // Restore the user's original theme preference
   restoreUserTheme();
@@ -5825,13 +5824,11 @@ export function startHexacore(mode) {
   document.body.setAttribute('data-theme', 'dark');
   localStorage.setItem('theme', 'dark');
 
-  document.body.classList.add('hx-active');
-
-  // Clear the shared word display so no stale main-board letters show
+  // Clear the word display before the new board is shown
   const currentWordEl = document.getElementById('current-word');
   if (currentWordEl) currentWordEl.textContent = '';
 
-  // Change title to reflect Hexacore mode
+  // Refresh the Hexacore title treatment
   setHexacoreTitle();
 
   ensureHud();
@@ -5875,8 +5872,6 @@ export function stopHexacore() {
   hxSvg = null;
   hxTileMap = new Map();
   hxUpdateViewForBoard = null;
-
-  document.body.classList.remove('hx-active');
 
   // Restore the user's original theme preference
   restoreUserTheme();
