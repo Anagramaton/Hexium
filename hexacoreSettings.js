@@ -7,27 +7,16 @@ import { getPlayerName }         from './leaderboard.js';
 import { getXPData }             from './hexacoreXP.js';
 
 /* ──────────────────────────────────────────────────────────────────
-   Intercept the Anagramaton settings-btn click when hx-active.
-   This listener runs after main.js registers its own listener, so
-   we just close the Anagramaton dropdown and open the Hexacore one.
+   Standalone settings button wiring.
    ────────────────────────────────────────────────────────────────── */
 (function () {
   const $ = id => document.getElementById(id);
 
   function onSettingsBtnClick() {
-    if (!document.body.classList.contains('hx-active')) return;
-
-    // Close the Anagramaton dropdown that main.js just opened
-    const menu = $('settings-menu');
-    const wrap = $('settings-wrap');
-    if (menu) menu.hidden = true;
-    if (wrap) wrap.classList.remove('menu-open');
-
     openHexacoreSettingsModal();
   }
 
   // Register after DOM is ready so #settings-btn exists.
-  // Using capture:false → runs in bubble order, after main.js's handler.
   document.addEventListener('DOMContentLoaded', () => {
     const btn = $('settings-btn');
     if (btn) btn.addEventListener('click', onSettingsBtnClick);

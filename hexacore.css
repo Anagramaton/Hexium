@@ -561,13 +561,13 @@
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1.0); filter: brightness(1); }
 }
 
-/* ── Hide Anagramaton-specific UI during Hexacore ──────────────── */
-body.hx-active #score-display        { display: none; }
-body.hx-active #top-btn-bar          { display: none; }
-body.hx-active #current-word-display { display: none; }
-body.hx-active #word-score-preview   { display: none; }
-body.hx-active #left-panel-title,
-body.hx-active #right-panel-title    { display: none; }
+/* ── Hide legacy shell UI in standalone Hexium ─────────────────── */
+body #score-display        { display: none; }
+body #top-btn-bar          { display: none; }
+body #current-word-display { display: none; }
+body #word-score-preview   { display: none; }
+body #left-panel-title,
+body #right-panel-title    { display: none; }
 
 /* ── #hx-top-bar: centered Hexacore action stack ─────────────────── */
 #hx-top-bar {
@@ -1133,8 +1133,8 @@ body.hx-active #right-panel-title    { display: none; }
   animation: hx-rune-spawn-anim 0.65s ease-out forwards;
 }
 
-/* ── Disable native scroll/zoom on hex grid during Hexacore ───── */
-body.hx-active #hex-grid {
+/* ── Disable native scroll/zoom on the hex grid ───────────────── */
+body #hex-grid {
   touch-action: none;
 }
 
@@ -2929,10 +2929,10 @@ body.hx-active #hex-grid {
   text-shadow: 0 0 12px rgba(229, 231, 235, 0.8) !important;
 }
 
-/* ── Game title in Hexacore mode: orange stroke watermark ───────── */
+/* ── Game title: orange stroke watermark ───────────────────────── */
 /* Use opacity:1 on the parent so child filter:brightness() is not crushed.
    The dim watermark appearance comes from the low-alpha rgba stroke instead. */
-body.hx-active :is(#game-title, #game-title-mirror) {
+body :is(#game-title, #game-title-mirror) {
   font-family: 'Bebas Neue', sans-serif;
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(255, 140, 66, 0.12);
@@ -2940,7 +2940,7 @@ body.hx-active :is(#game-title, #game-title-mirror) {
   filter: none;
   opacity: 1;
 }
-body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter {
+body :is(#game-title, #game-title-mirror) .hx-title-letter {
   display: inline-block;
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(255, 140, 66, 0.12);
@@ -2979,7 +2979,7 @@ body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter {
     opacity: 1;
   }
 }
-body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+body :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
   will-change: filter, transform;
   animation: hx-title-letter-flash 1.8s ease-out calc((var(--title-group, 0) * 1800ms) + (var(--anim-order, 0) * var(--hx-title-stagger, 120ms))) 1 normal both;
 }
@@ -2995,15 +2995,15 @@ body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
     opacity: 1;
   }
 }
-body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--dimming {
+body :is(#game-title, #game-title-mirror) .hx-title-letter--dimming {
   animation: hx-title-letter-dim 2.5s ease-out forwards;
 }
-body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) {
+body[data-theme="dark"] :is(#game-title, #game-title-mirror) {
   opacity: 1;
   -webkit-text-stroke: 1.5px rgba(255, 140, 66, 0.15);
   --hx-title-stroke-base: rgba(255, 140, 66, 0.15);
 }
-body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter {
+body[data-theme="dark"] :is(#game-title, #game-title-mirror) .hx-title-letter {
   -webkit-text-stroke: 1.5px rgba(255, 140, 66, 0.15);
 }
 @keyframes hx-title-letter-flash-dark {
@@ -3038,7 +3038,7 @@ body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title
     opacity: 1;
   }
 }
-body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+body[data-theme="dark"] :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
   will-change: filter, transform;
   animation: hx-title-letter-flash-dark 1.8s ease-out calc((var(--title-group, 0) * 1800ms) + (var(--anim-order, 0) * var(--hx-title-stagger, 120ms))) 1 normal both;
 }
@@ -3054,7 +3054,7 @@ body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title
     opacity: 1;
   }
 }
-body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--dimming {
+body[data-theme="dark"] :is(#game-title, #game-title-mirror) .hx-title-letter--dimming {
   animation: hx-title-letter-dim-dark 2.5s ease-out forwards;
 }
 
@@ -3062,8 +3062,8 @@ body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title
 
 /* Tablet (769px–1024px): no drop-shadows already handled above; reduce duration 20% */
 @media (min-width: 769px) and (max-width: 1024px) {
-  body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit,
-  body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+  body :is(#game-title, #game-title-mirror) .hx-title-letter--lit,
+  body[data-theme="dark"] :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
     animation-duration: 1.44s;
   }
   .hx-consumed-ember,
@@ -3082,8 +3082,8 @@ body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title
     60%  { filter: brightness(1.2);  transform: scale(1.01); -webkit-text-stroke-color: #ffaa50; }
     100% { filter: brightness(1);    transform: scale(1);    -webkit-text-stroke-color: var(--hx-title-stroke-base); }
   }
-  body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit,
-  body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+  body :is(#game-title, #game-title-mirror) .hx-title-letter--lit,
+  body[data-theme="dark"] :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
     animation: hx-title-letter-flash-mobile 1.8s ease-out calc((var(--title-group, 0) * 1800ms) + (var(--anim-order, 0) * var(--hx-title-stagger, 120ms))) 1 normal both;
   }
   .hx-consumed-ember,
@@ -3095,8 +3095,8 @@ body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title
 
 /* prefers-reduced-motion: replace heavy animations with minimal visual feedback */
 @media (prefers-reduced-motion: reduce) {
-  body.hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit,
-  body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+  body :is(#game-title, #game-title-mirror) .hx-title-letter--lit,
+  body[data-theme="dark"] :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
     animation: none;
     filter: brightness(1.5);
   }
@@ -5653,25 +5653,25 @@ body[data-theme="dark"].hx-active :is(#game-title, #game-title-mirror) .hx-title
 }
 
 /* ================================================================
-   Light Mode Overrides — body[data-theme="light"].hx-active
+   Light Mode Overrides — body[data-theme="light"]
    Provides improved contrast and visibility for all Hexacore UI
    elements when the user switches to light theme inside the game.
    ================================================================ */
 
 /* ── Background: soft blue-tinted field that lets vivid tile colours pop ─ */
-body[data-theme="light"].hx-active {
+body[data-theme="light"] {
   background-color: #e8edf8;
   background-image: radial-gradient(circle, #b8c6e0 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
 /* ── Game-title watermark — visible amber outline on light background ──── */
-body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) {
+body[data-theme="light"] :is(#game-title, #game-title-mirror) {
   opacity: 1;
   -webkit-text-stroke: 2px rgba(160, 70, 10, 0.45);
   --hx-title-stroke-base: rgba(160, 70, 10, 0.45);
 }
-body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter {
+body[data-theme="light"] :is(#game-title, #game-title-mirror) .hx-title-letter {
   -webkit-text-stroke: 2px rgba(160, 70, 10, 0.45);
 }
 
@@ -5707,7 +5707,7 @@ body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) .hx-titl
     opacity: 1;
   }
 }
-body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+body[data-theme="light"] :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
   will-change: filter, transform;
   animation: hx-title-letter-flash-light 1.8s ease-out calc((var(--title-group, 0) * 1800ms) + (var(--anim-order, 0) * var(--hx-title-stagger, 120ms))) 1 normal both;
 }
@@ -5724,107 +5724,107 @@ body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) .hx-titl
     opacity: 1;
   }
 }
-body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--dimming {
+body[data-theme="light"] :is(#game-title, #game-title-mirror) .hx-title-letter--dimming {
   animation: hx-title-letter-dim-light 2.5s ease-out forwards;
 }
 
 /* ── Tile contrast: subtle drop-shadow on all hex tiles so they lift
       off the light background and remain clearly distinguishable ───── */
-body[data-theme="light"].hx-active .hx-hex-tile,
-body[data-theme="light"].hx-active .hx-normal {
+body[data-theme="light"] .hx-hex-tile,
+body[data-theme="light"] .hx-normal {
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.22));
 }
-body[data-theme="light"].hx-active .hx-ember {
+body[data-theme="light"] .hx-ember {
   filter:
     drop-shadow(0 0 14px rgba(249, 115, 22, 0.9))
     drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
 }
-body[data-theme="light"].hx-active .hx-prism {
+body[data-theme="light"] .hx-prism {
   filter:
     drop-shadow(0 0 10px rgba(167, 139, 250, 0.85))
     drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
 }
-body[data-theme="light"].hx-active .hx-rune {
+body[data-theme="light"] .hx-rune {
   filter:
     drop-shadow(0 0 8px rgba(234, 179, 8, 0.55))
     drop-shadow(0 0 12px rgba(126, 34, 206, 0.7))
     drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
 }
-body[data-theme="light"].hx-active .hx-digraph {
+body[data-theme="light"] .hx-digraph {
   filter:
     drop-shadow(0 0 10px rgba(251, 191, 36, 0.85))
     drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
 }
 
 /* ── HUD elements: slightly darker glass so text remains legible ─── */
-body[data-theme="light"].hx-active #hx-score-hud {
+body[data-theme="light"] #hx-score-hud {
   background: rgba(240, 244, 255, 0.88);
   border-color: rgba(76, 201, 240, 0.5);
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
-body[data-theme="light"].hx-active #hx-score-num {
+body[data-theme="light"] #hx-score-num {
   filter: drop-shadow(0 0 6px rgba(76, 201, 240, 0.5)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
 }
-body[data-theme="light"].hx-active #hx-level-hud {
+body[data-theme="light"] #hx-level-hud {
   background: rgba(232, 237, 248, 0.9);
   border-color: rgba(76, 201, 240, 0.45);
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
-body[data-theme="light"].hx-active #hx-level-wrap {
+body[data-theme="light"] #hx-level-wrap {
   background: rgba(225, 232, 248, 0.85);
   border-color: rgba(76, 201, 240, 0.4);
 }
-body[data-theme="light"].hx-active #hx-xp-bar-container {
+body[data-theme="light"] #hx-xp-bar-container {
   background: rgba(200, 215, 240, 0.7);
   border-color: rgba(76, 201, 240, 0.35);
 }
 
 /* ── Powerup count badge: dark background so it shows on light page ─ */
-body[data-theme="light"].hx-active .hx-powerup-icon-count {
+body[data-theme="light"] .hx-powerup-icon-count {
   background: rgba(20, 24, 50, 0.9);
 }
 
 /* ── Settings modal: ensure legibility on light background ─────── */
-body[data-theme="light"].hx-active #hx-settings-box {
+body[data-theme="light"] #hx-settings-box {
   background: linear-gradient(160deg, rgba(232, 237, 248, 0.97), rgba(220, 228, 245, 0.97));
   border-color: rgba(76, 201, 240, 0.4);
   color: #1a1a2e;
 }
-body[data-theme="light"].hx-active #hx-settings-title {
+body[data-theme="light"] #hx-settings-title {
   color: #1a1a2e;
 }
-body[data-theme="light"].hx-active .hx-settings-tab {
+body[data-theme="light"] .hx-settings-tab {
   color: rgba(30, 30, 80, 0.6);
 }
-body[data-theme="light"].hx-active .hx-settings-tab:hover,
-body[data-theme="light"].hx-active .hx-settings-tab--active {
+body[data-theme="light"] .hx-settings-tab:hover,
+body[data-theme="light"] .hx-settings-tab--active {
   color: rgba(30, 30, 80, 0.95);
 }
 
 /* ── Mode-select & other overlay modals ─────────────────────────── */
-body[data-theme="light"].hx-active #hx-mode-select-box {
+body[data-theme="light"] #hx-mode-select-box {
   background: linear-gradient(160deg, rgba(232, 237, 248, 0.97), rgba(218, 227, 248, 0.97));
   border-color: rgba(76, 201, 240, 0.35);
 }
-body[data-theme="light"].hx-active #hx-mode-select-title {
+body[data-theme="light"] #hx-mode-select-title {
   color: #1a1a2e;
 }
-body[data-theme="light"].hx-active .hx-mode-card {
+body[data-theme="light"] .hx-mode-card {
   background: rgba(255, 255, 255, 0.7);
   border-color: rgba(76, 201, 240, 0.25);
   color: #1a1a2e;
 }
-body[data-theme="light"].hx-active .hx-mode-card:hover {
+body[data-theme="light"] .hx-mode-card:hover {
   background: rgba(255, 255, 255, 0.92);
   border-color: var(--mode-color, rgba(76, 201, 240, 0.65));
 }
 
 /* ── Powerup targeting indicator: visible on light page ─────────── */
-body[data-theme="light"].hx-active .hx-powerup-indicator {
+body[data-theme="light"] .hx-powerup-indicator {
   color: #1a1a2e;
   background: rgba(232, 237, 248, 0.95);
   border-color: rgba(76, 201, 240, 0.5);
@@ -5833,12 +5833,12 @@ body[data-theme="light"].hx-active .hx-powerup-indicator {
 
 /* ── Media breakpoints: also apply light-mode title animation on tablet/mobile ─ */
 @media (min-width: 769px) and (max-width: 1024px) {
-  body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+  body[data-theme="light"] :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
     animation-duration: 1.44s;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  body[data-theme="light"].hx-active :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
+  body[data-theme="light"] :is(#game-title, #game-title-mirror) .hx-title-letter--lit {
     animation: none;
     filter: brightness(1.3);
   }

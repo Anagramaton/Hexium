@@ -2,18 +2,11 @@
 (function () {
   const $ = (id) => document.getElementById(id);
 
-  // --- Route #howto-open depending on game mode ---
-  // hexacoreHowTo.js is loaded before howToModal.js, so this listener
-  // registers first. At the target element, listeners fire in registration
-  // order, so ours fires before howToModal.js's handler.
+  // --- Open a dedicated How To trigger directly when present ---
   const routeBtn = $('howto-open');
   if (routeBtn) {
-    routeBtn.addEventListener('click', (e) => {
-      if (document.body.classList.contains('hx-active')) {
-        e.stopImmediatePropagation(); // prevent howToModal.js handler from firing
-        window.hxHowto?.open();
-      }
-      // else: howToModal.js click handler runs normally
+    routeBtn.addEventListener('click', () => {
+      window.hxHowto?.open();
     });
   }
 
