@@ -63,11 +63,9 @@ export function createTile({
 
 
 
-const g = document.createElementNS(SVG_NS, 'g');
-g.classList.add('tile');
-g.append(outline, poly, tLetter, tPoint);
-
-
+  const g = document.createElementNS(SVG_NS, 'g');
+  g.classList.add('tile');
+  g.append(outline, poly, tLetter, tPoint);
 
   // --- Public tile object & helpers ---
   const tile = {
@@ -80,17 +78,17 @@ g.append(outline, poly, tLetter, tPoint);
     textLetter: tLetter,
     textPoint: tPoint,
 
-  setSelected(val) {
-    const on = !!val;
-    g.classList.toggle('selected', on);
-    poly.classList.toggle('selected', on);
-    tLetter.classList.toggle('selected', on);
-    tPoint.classList.toggle('selected', on);
-  },
-  setUsed(val) {
-    poly.used = !!val;
-    g.classList.toggle('used', !!val);
-  },
+    setSelected(val) {
+      const on = !!val;
+      g.classList.toggle('selected', on);
+      poly.classList.toggle('selected', on);
+      tLetter.classList.toggle('selected', on);
+      tPoint.classList.toggle('selected', on);
+    },
+    setUsed(val) {
+      poly.used = !!val;
+      g.classList.toggle('used', !!val);
+    },
     setEnabled(val) {
       const on = val !== false;
       g.style.pointerEvents = on ? 'auto' : 'none';
@@ -103,11 +101,8 @@ g.append(outline, poly, tLetter, tPoint);
         tile.point = newPoint;
         tPoint.textContent = newPoint;
       }
-    }
+    },
   };
-
-
-
 
   return tile;
 }

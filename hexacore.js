@@ -858,20 +858,48 @@ async function animateTileMovesStaggered(moves) {
 }
 
 
+/* ── Tile type → CSS class lookup ──────────────────────────────── */
+const HX_TILE_TYPE_CSS = {
+  digraph:        'hx-digraph',
+  ember:          'hx-ember',
+  prism:          'hx-prism',
+  rune:           'hx-rune',
+  gemEmerald:     'hx-gem-emerald',
+  gemGold:        'hx-gem-gold',
+  gemSapphire:    'hx-gem-sapphire',
+  gemPearl:       'hx-gem-pearl',
+  gemTanzanite:   'hx-gem-tanzanite',
+  gemRuby:        'hx-gem-ruby',
+  gemDiamond:     'hx-gem-diamond',
+  gemAquamarine:  'hx-gem-aquamarine',
+  gemTopaz:       'hx-gem-topaz',
+  gemOpal:        'hx-gem-opal',
+  gemImperialJade:'hx-gem-imperialjade',
+  gemAlexandrite: 'hx-gem-alexandrite',
+  amethyst:       'hx-amethyst',
+  selenite:       'hx-selenite',
+  oracle:         'hx-oracle',
+  beacon:         'hx-beacon',
+  eclipse:        'hx-eclipse',
+  lodestone:      'hx-lodestone',
+  lexicon:        'hx-lexicon',
+};
+
+/** Tile types that render as achievement tiles (no point label, centered letter). */
+const HX_ACHIEVEMENT_TILE_TYPES = new Set(['oracle', 'beacon', 'eclipse', 'lodestone', 'lexicon']);
+
+/** Tile types that receive a sparkle fallback class on their letter element. */
+const HX_SPARKLE_CLASS = { amethyst: 'hx-sparkle-amethyst', selenite: 'hx-sparkle-selenite', rune: 'hx-sparkle-rune' };
+
 /* ── Tile type styling ─────────────────────────────────────────── */
 function applyTileType(tile) {
   const poly = tile.element.querySelector('polygon');
-  poly.classList.remove(
-    'hx-ember', 'hx-prism', 'hx-rune', 'hx-digraph',
-    'hx-gem-emerald', 'hx-gem-gold', 'hx-gem-sapphire',
-    'hx-gem-pearl', 'hx-gem-tanzanite', 'hx-gem-ruby', 'hx-gem-diamond',
-    'hx-gem-aquamarine', 'hx-gem-topaz', 'hx-gem-opal',
-    'hx-gem-imperialjade', 'hx-gem-alexandrite',
-    'hx-amethyst', 'hx-selenite',
-    'hx-oracle', 'hx-beacon', 'hx-eclipse', 'hx-lodestone', 'hx-lexicon',
-  );
+
+  // Remove all known type classes in one call
+  poly.classList.remove(...Object.values(HX_TILE_TYPE_CSS));
   tile.element.querySelector('.hx-type-icon')?.remove();
-  // Reset letter font size (may have been reduced for digraph)
+
+  // Reset shared letter/point display to defaults
   tile.textLetter.setAttribute('font-size', '28');
   tile.textLetter.removeAttribute('dominant-baseline');
   tile.textLetter.classList.remove(
@@ -879,78 +907,25 @@ function applyTileType(tile) {
     'hx-sparkle-amethyst', 'hx-sparkle-selenite', 'hx-sparkle-rune',
   );
 
+  const cssClass = HX_TILE_TYPE_CSS[tile.tileType];
+  if (cssClass) poly.classList.add(cssClass);
+
   if (tile.tileType === 'digraph') {
-    poly.classList.add('hx-digraph');
     tile.textLetter.textContent = tile.letter;
     tile.textPoint.textContent  = String(tile.point);
     tile.textLetter.setAttribute('font-size', '21');
-  } else if (tile.tileType === 'ember') {
-    poly.classList.add('hx-ember');
-  } else if (tile.tileType === 'prism') {
-    poly.classList.add('hx-prism');
   } else if (tile.tileType === 'rune') {
-    poly.classList.add('hx-rune');
     tile.textLetter.textContent = '?';
     tile.textPoint.textContent  = '?';
     // Sparkle fallback for browsers without :has() support
     tile.textLetter.classList.add('hx-sparkle-rune');
-  } else if (tile.tileType === 'gemEmerald') {
-    poly.classList.add('hx-gem-emerald');
-  } else if (tile.tileType === 'gemGold') {
-    poly.classList.add('hx-gem-gold');
-  } else if (tile.tileType === 'gemSapphire') {
-    poly.classList.add('hx-gem-sapphire');
-  } else if (tile.tileType === 'gemPearl') {
-    poly.classList.add('hx-gem-pearl');
-  } else if (tile.tileType === 'gemTanzanite') {
-    poly.classList.add('hx-gem-tanzanite');
-  } else if (tile.tileType === 'gemRuby') {
-    poly.classList.add('hx-gem-ruby');
-  } else if (tile.tileType === 'gemDiamond') {
-    poly.classList.add('hx-gem-diamond');
-  } else if (tile.tileType === 'gemAquamarine') {
-    poly.classList.add('hx-gem-aquamarine');
-  } else if (tile.tileType === 'gemTopaz') {
-    poly.classList.add('hx-gem-topaz');
-  } else if (tile.tileType === 'gemOpal') {
-    poly.classList.add('hx-gem-opal');
-  } else if (tile.tileType === 'gemImperialJade') {
-    poly.classList.add('hx-gem-imperialjade');
-  } else if (tile.tileType === 'gemAlexandrite') {
-    poly.classList.add('hx-gem-alexandrite');
-  } else if (tile.tileType === 'amethyst') {
-    poly.classList.add('hx-amethyst');
+  } else if (HX_ACHIEVEMENT_TILE_TYPES.has(tile.tileType)) {
+    tile.textLetter.classList.add('hx-achievement-tile-letter');
+    tile.textLetter.setAttribute('dominant-baseline', 'central');
+    tile.textPoint.textContent  = '';
+  } else if (HX_SPARKLE_CLASS[tile.tileType]) {
     // Sparkle fallback for browsers without :has() support
-    tile.textLetter.classList.add('hx-sparkle-amethyst');
-  } else if (tile.tileType === 'selenite') {
-    poly.classList.add('hx-selenite');
-    // Sparkle fallback for browsers without :has() support
-    tile.textLetter.classList.add('hx-sparkle-selenite');
-  } else if (tile.tileType === 'oracle') {
-    poly.classList.add('hx-oracle');
-    tile.textLetter.classList.add('hx-achievement-tile-letter');
-    tile.textLetter.setAttribute('dominant-baseline', 'central');
-    tile.textPoint.textContent  = '';
-  } else if (tile.tileType === 'beacon') {
-    poly.classList.add('hx-beacon');
-    tile.textLetter.classList.add('hx-achievement-tile-letter');
-    tile.textLetter.setAttribute('dominant-baseline', 'central');
-    tile.textPoint.textContent  = '';
-  } else if (tile.tileType === 'eclipse') {
-    poly.classList.add('hx-eclipse');
-    tile.textLetter.classList.add('hx-achievement-tile-letter');
-    tile.textLetter.setAttribute('dominant-baseline', 'central');
-    tile.textPoint.textContent  = '';
-  } else if (tile.tileType === 'lodestone') {
-    poly.classList.add('hx-lodestone');
-    tile.textLetter.classList.add('hx-achievement-tile-letter');
-    tile.textLetter.setAttribute('dominant-baseline', 'central');
-    tile.textPoint.textContent  = '';
-  } else if (tile.tileType === 'lexicon') {
-    poly.classList.add('hx-lexicon');
-    tile.textLetter.classList.add('hx-achievement-tile-letter');
-    tile.textLetter.setAttribute('dominant-baseline', 'central');
-    tile.textPoint.textContent  = '';
+    tile.textLetter.classList.add(HX_SPARKLE_CLASS[tile.tileType]);
   }
 }
 
@@ -981,286 +956,80 @@ function injectSvgDefs(svg) {
     defs.appendChild(filter);
   }
 
-  function ensureLinearGradient(id, c1, c2) {
+  /** Creates a linearGradient with any number of colour stops. Skipped if already present. */
+  function ensureGradient(id, x1, y1, x2, y2, stops) {
     if (document.getElementById(id)) return;
     const grad = document.createElementNS(SVG_NS, 'linearGradient');
     grad.setAttribute('id', id);
-    grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
-    grad.setAttribute('x2', '100%'); grad.setAttribute('y2', '100%');
-    const s1 = document.createElementNS(SVG_NS, 'stop');
-    s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', c1);
-    const s2 = document.createElementNS(SVG_NS, 'stop');
-    s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', c2);
-    grad.append(s1, s2);
+    grad.setAttribute('x1', x1); grad.setAttribute('y1', y1);
+    grad.setAttribute('x2', x2); grad.setAttribute('y2', y2);
+    stops.forEach(([offset, color]) => {
+      const s = document.createElementNS(SVG_NS, 'stop');
+      s.setAttribute('offset', offset);
+      s.setAttribute('stop-color', color);
+      grad.appendChild(s);
+    });
     defs.appendChild(grad);
   }
 
   ensureFilter('hoverGlow');
-  if (!document.getElementById('hx-ember-gradient')) {
-    const emberGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    emberGrad.setAttribute('id', 'hx-ember-gradient');
-    emberGrad.setAttribute('x1', '20%'); emberGrad.setAttribute('y1', '100%');
-    emberGrad.setAttribute('x2', '80%'); emberGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#260000'],
-      ['30%',  '#b91c1c'],
-      ['60%',  '#f97316'],
-      ['85%',  '#fbbf24'],
-      ['100%', '#fef3c7'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      emberGrad.appendChild(s);
-    });
-    defs.appendChild(emberGrad);
-  }
-  // Prism: deep violet → electric rose
-  ensureLinearGradient('hx-prism-gradient',    '#1a0040', '#db2777');
-  // Digraph: deep teal → emerald
-  ensureLinearGradient('hx-digraph-gradient',  '#022c22', '#34d399');
-  // Portal: midnight → vivid violet → magenta
-  ensureLinearGradient('hx-portal-gradient',   '#1a003f', '#7c3aed');
-  // Rune: imperial violet base with gilded highlights
-  if (!document.getElementById('hx-rune-gradient')) {
-    const runeGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    runeGrad.setAttribute('id', 'hx-rune-gradient');
-    runeGrad.setAttribute('x1', '50%'); runeGrad.setAttribute('y1', '100%');
-    runeGrad.setAttribute('x2', '50%'); runeGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#1f1033'],
-      ['55%',  '#5b21b6'],
-      ['100%', '#fbbf24'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      runeGrad.appendChild(s);
-    });
-    defs.appendChild(runeGrad);
-  }
-  ensureLinearGradient('hx-gem-emerald-gradient',   '#16a34a', '#4ade80');
 
-  // Gold — bright lemon yellow (separated from Topaz and Ember which are orange)
-  if (!document.getElementById('hx-gem-gold-gradient')) {
-    const goldGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    goldGrad.setAttribute('id', 'hx-gem-gold-gradient');
-    goldGrad.setAttribute('x1', '0%'); goldGrad.setAttribute('y1', '0%');
-    goldGrad.setAttribute('x2', '100%'); goldGrad.setAttribute('y2', '100%');
-    [['0%', '#92400e'], ['50%', '#eab308'], ['100%', '#fef08a']].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset); s.setAttribute('stop-color', color);
-      goldGrad.appendChild(s);
-    });
-    defs.appendChild(goldGrad);
-  }
+  // Gradient definitions: [id, x1, y1, x2, y2, [[offset, color], ...]]
+  // Two-stop diagonals (0%→100%, top-left to bottom-right) are the most common.
+  const GRADIENTS = [
+    // ── Special tiles ──────────────────────────────────────────────
+    ['hx-ember-gradient',          '20%', '100%', '80%',   '0%',  [['0%','#260000'],['30%','#b91c1c'],['60%','#f97316'],['85%','#fbbf24'],['100%','#fef3c7']]],
+    ['hx-prism-gradient',           '0%',   '0%','100%', '100%',  [['0%','#1a0040'],['100%','#db2777']]],
+    ['hx-digraph-gradient',         '0%',   '0%','100%', '100%',  [['0%','#022c22'],['100%','#34d399']]],
+    ['hx-portal-gradient',          '0%',   '0%','100%', '100%',  [['0%','#1a003f'],['100%','#7c3aed']]],
+    ['hx-rune-gradient',           '50%', '100%', '50%',   '0%',  [['0%','#1f1033'],['55%','#5b21b6'],['100%','#fbbf24']]],
 
-  ensureLinearGradient('hx-gem-sapphire-gradient',   '#1d4ed8', '#93c5fd');
-  ensureLinearGradient('hx-gem-pearl-gradient',      '#d4c5a9', '#ffffff');
+    // ── Gem tiles ──────────────────────────────────────────────────
+    // Emerald — green
+    ['hx-gem-emerald-gradient',     '0%',   '0%','100%', '100%',  [['0%','#16a34a'],['100%','#4ade80']]],
+    // Gold — bright lemon yellow (separated from Topaz and Ember which are orange)
+    ['hx-gem-gold-gradient',        '0%',   '0%','100%', '100%',  [['0%','#92400e'],['50%','#eab308'],['100%','#fef08a']]],
+    // Sapphire — blue
+    ['hx-gem-sapphire-gradient',    '0%',   '0%','100%', '100%',  [['0%','#1d4ed8'],['100%','#93c5fd']]],
+    // Pearl — warm ivory
+    ['hx-gem-pearl-gradient',       '0%',   '0%','100%', '100%',  [['0%','#d4c5a9'],['100%','#ffffff']]],
+    // Tanzanite — deep navy blue (separated from Rune and Amethyst purples)
+    ['hx-gem-tanzanite-gradient',   '0%',   '0%','100%', '100%',  [['0%','#020617'],['50%','#1e3a8a'],['100%','#60a5fa']]],
+    // Ruby — red
+    ['hx-gem-ruby-gradient',        '0%',   '0%','100%', '100%',  [['0%','#7f1d1d'],['100%','#ef4444']]],
+    // Diamond — steel silver (separated from Selenite moonstone blue-white)
+    ['hx-gem-diamond-gradient',     '0%',   '0%','100%', '100%',  [['0%','#334155'],['50%','#94a3b8'],['100%','#f1f5f9']]],
+    // Aquamarine — cyan
+    ['hx-gem-aquamarine-gradient',  '0%',   '0%','100%', '100%',  [['0%','#0891b2'],['100%','#67e8f9']]],
+    // Topaz — warm orange (clearly orange, Gold is clearly yellow)
+    ['hx-gem-topaz-gradient',       '0%',   '0%','100%', '100%',  [['0%','#7c2d12'],['50%','#ea580c'],['100%','#fdba74']]],
+    // Opal — lilac to white
+    ['hx-gem-opal-gradient',        '0%',   '0%','100%', '100%',  [['0%','#c4b5fd'],['100%','#ffffff']]],
+    // Imperial Jade — forest green
+    ['hx-gem-imperialjade-gradient','0%',   '0%','100%', '100%',  [['0%','#064e3b'],['100%','#34d399']]],
+    // Alexandrite — vivid fuchsia (removed green overlap with Imperial Jade)
+    ['hx-gem-alexandrite-gradient', '0%',   '0%','100%', '100%',  [['0%','#4a044e'],['33%','#a21caf'],['67%','#e879f9'],['100%','#fce7f3']]],
 
-  // Tanzanite — deep navy blue (separated from Rune and Amethyst purples)
-  if (!document.getElementById('hx-gem-tanzanite-gradient')) {
-    const tanzaniteGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    tanzaniteGrad.setAttribute('id', 'hx-gem-tanzanite-gradient');
-    tanzaniteGrad.setAttribute('x1', '0%'); tanzaniteGrad.setAttribute('y1', '0%');
-    tanzaniteGrad.setAttribute('x2', '100%'); tanzaniteGrad.setAttribute('y2', '100%');
-    [['0%', '#020617'], ['50%', '#1e3a8a'], ['100%', '#60a5fa']].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset); s.setAttribute('stop-color', color);
-      tanzaniteGrad.appendChild(s);
-    });
-    defs.appendChild(tanzaniteGrad);
-  }
+    // ── Power-up tiles ─────────────────────────────────────────────
+    // Amethyst — obsidian → royal purple → electric fuchsia
+    ['hx-amethyst-gradient',      '100%', '100%',  '0%',   '0%',  [['0%','#1a0028'],['50%','#7e22ce'],['100%','#d946ef']]],
+    // Selenite — deep ocean → arctic teal → crystal ice
+    ['hx-selenite-gradient',        '0%', '100%',  '0%',   '0%',  [['0%','#030712'],['35%','#0c4a6e'],['70%','#0ea5e9'],['100%','#e0f2fe']]],
 
-  ensureLinearGradient('hx-gem-ruby-gradient',       '#7f1d1d', '#ef4444');
+    // ── Achievement tiles ──────────────────────────────────────────
+    // Oracle — moonstone silver → opal shimmer → luminous white
+    ['hx-oracle-gradient',          '0%', '100%','100%',   '0%',  [['0%','#1e293b'],['45%','#64748b'],['80%','#cbd5e1'],['100%','#f8fafc']]],
+    // Beacon — deep amber → gold → sunburst yellow
+    ['hx-beacon-gradient',          '0%', '100%','100%',   '0%',  [['0%','#451a03'],['40%','#b45309'],['75%','#f59e0b'],['100%','#fef08a']]],
+    // Eclipse — obsidian → deep charcoal → shadow violet
+    ['hx-eclipse-gradient',        '50%', '100%', '50%',   '0%',  [['0%','#020617'],['45%','#1c1917'],['80%','#292524'],['100%','#4c1d95']]],
+    // Lodestone — iron dark → steel mid → chrome highlight
+    ['hx-lodestone-gradient',       '0%', '100%','100%',   '0%',  [['0%','#18181b'],['40%','#3f3f46'],['75%','#a1a1aa'],['100%','#e4e4e7']]],
+    // Lexicon — rainbow prismatic 6-stop spectrum
+    ['hx-lexicon-gradient',         '0%',   '0%','100%', '100%',  [['0%','#dc2626'],['20%','#ea580c'],['40%','#16a34a'],['60%','#2563eb'],['80%','#7c3aed'],['100%','#db2777']]],
+  ];
 
-  // Diamond — steel silver (separated from Selenite moonstone blue-white)
-  if (!document.getElementById('hx-gem-diamond-gradient')) {
-    const diamondGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    diamondGrad.setAttribute('id', 'hx-gem-diamond-gradient');
-    diamondGrad.setAttribute('x1', '0%'); diamondGrad.setAttribute('y1', '0%');
-    diamondGrad.setAttribute('x2', '100%'); diamondGrad.setAttribute('y2', '100%');
-    [['0%', '#334155'], ['50%', '#94a3b8'], ['100%', '#f1f5f9']].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset); s.setAttribute('stop-color', color);
-      diamondGrad.appendChild(s);
-    });
-    defs.appendChild(diamondGrad);
-  }
-
-  ensureLinearGradient('hx-gem-aquamarine-gradient',  '#0891b2', '#67e8f9');
-
-  // Topaz — warm orange (clearly orange, Gold is clearly yellow)
-  if (!document.getElementById('hx-gem-topaz-gradient')) {
-    const topazGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    topazGrad.setAttribute('id', 'hx-gem-topaz-gradient');
-    topazGrad.setAttribute('x1', '0%'); topazGrad.setAttribute('y1', '0%');
-    topazGrad.setAttribute('x2', '100%'); topazGrad.setAttribute('y2', '100%');
-    [['0%', '#7c2d12'], ['50%', '#ea580c'], ['100%', '#fdba74']].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset); s.setAttribute('stop-color', color);
-      topazGrad.appendChild(s);
-    });
-    defs.appendChild(topazGrad);
-  }
-
-  ensureLinearGradient('hx-gem-opal-gradient',        '#c4b5fd', '#ffffff');
-  ensureLinearGradient('hx-gem-imperialjade-gradient','#064e3b', '#34d399');
-
-  // Alexandrite — vivid fuchsia (removed green overlap with Imperial Jade)
-  if (!document.getElementById('hx-gem-alexandrite-gradient')) {
-    const alexGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    alexGrad.setAttribute('id', 'hx-gem-alexandrite-gradient');
-    alexGrad.setAttribute('x1', '0%'); alexGrad.setAttribute('y1', '0%');
-    alexGrad.setAttribute('x2', '100%'); alexGrad.setAttribute('y2', '100%');
-    [['0%', '#4a044e'], ['33%', '#a21caf'], ['67%', '#e879f9'], ['100%', '#fce7f3']].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset); s.setAttribute('stop-color', color);
-      alexGrad.appendChild(s);
-    });
-    defs.appendChild(alexGrad);
-  }
-
-  // Amethyst — obsidian → royal purple → electric fuchsia
-  if (!document.getElementById('hx-amethyst-gradient')) {
-    const amethystGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    amethystGrad.setAttribute('id', 'hx-amethyst-gradient');
-    amethystGrad.setAttribute('x1', '100%'); amethystGrad.setAttribute('y1', '100%');
-    amethystGrad.setAttribute('x2', '0%');   amethystGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#1a0028'],
-      ['50%',  '#7e22ce'],
-      ['100%', '#d946ef'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      amethystGrad.appendChild(s);
-    });
-    defs.appendChild(amethystGrad);
-  }
-
-  // Selenite — deep ocean → arctic teal → crystal ice
-  if (!document.getElementById('hx-selenite-gradient')) {
-    const seleniteGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    seleniteGrad.setAttribute('id', 'hx-selenite-gradient');
-    seleniteGrad.setAttribute('x1', '0%'); seleniteGrad.setAttribute('y1', '100%');
-    seleniteGrad.setAttribute('x2', '0%'); seleniteGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#030712'],
-      ['35%',  '#0c4a6e'],
-      ['70%',  '#0ea5e9'],
-      ['100%', '#e0f2fe'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      seleniteGrad.appendChild(s);
-    });
-    defs.appendChild(seleniteGrad);
-  }
-
-  // Oracle — moonstone silver → opal shimmer → luminous white
-  if (!document.getElementById('hx-oracle-gradient')) {
-    const oracleGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    oracleGrad.setAttribute('id', 'hx-oracle-gradient');
-    oracleGrad.setAttribute('x1', '0%'); oracleGrad.setAttribute('y1', '100%');
-    oracleGrad.setAttribute('x2', '100%'); oracleGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#1e293b'],
-      ['45%',  '#64748b'],
-      ['80%',  '#cbd5e1'],
-      ['100%', '#f8fafc'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      oracleGrad.appendChild(s);
-    });
-    defs.appendChild(oracleGrad);
-  }
-
-  // Beacon — deep amber → gold → sunburst yellow
-  if (!document.getElementById('hx-beacon-gradient')) {
-    const beaconGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    beaconGrad.setAttribute('id', 'hx-beacon-gradient');
-    beaconGrad.setAttribute('x1', '0%'); beaconGrad.setAttribute('y1', '100%');
-    beaconGrad.setAttribute('x2', '100%'); beaconGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#451a03'],
-      ['40%',  '#b45309'],
-      ['75%',  '#f59e0b'],
-      ['100%', '#fef08a'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      beaconGrad.appendChild(s);
-    });
-    defs.appendChild(beaconGrad);
-  }
-
-  // Eclipse — obsidian → deep charcoal → shadow violet
-  if (!document.getElementById('hx-eclipse-gradient')) {
-    const eclipseGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    eclipseGrad.setAttribute('id', 'hx-eclipse-gradient');
-    eclipseGrad.setAttribute('x1', '50%'); eclipseGrad.setAttribute('y1', '100%');
-    eclipseGrad.setAttribute('x2', '50%'); eclipseGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#020617'],
-      ['45%',  '#1c1917'],
-      ['80%',  '#292524'],
-      ['100%', '#4c1d95'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      eclipseGrad.appendChild(s);
-    });
-    defs.appendChild(eclipseGrad);
-  }
-
-  // Lodestone — iron dark → steel mid → chrome highlight
-  if (!document.getElementById('hx-lodestone-gradient')) {
-    const lodestoneGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    lodestoneGrad.setAttribute('id', 'hx-lodestone-gradient');
-    lodestoneGrad.setAttribute('x1', '0%'); lodestoneGrad.setAttribute('y1', '100%');
-    lodestoneGrad.setAttribute('x2', '100%'); lodestoneGrad.setAttribute('y2', '0%');
-    [
-      ['0%',   '#18181b'],
-      ['40%',  '#3f3f46'],
-      ['75%',  '#a1a1aa'],
-      ['100%', '#e4e4e7'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      lodestoneGrad.appendChild(s);
-    });
-    defs.appendChild(lodestoneGrad);
-  }
-
-  // Lexicon — rainbow prismatic 6-stop spectrum
-  if (!document.getElementById('hx-lexicon-gradient')) {
-    const lexiconGrad = document.createElementNS(SVG_NS, 'linearGradient');
-    lexiconGrad.setAttribute('id', 'hx-lexicon-gradient');
-    lexiconGrad.setAttribute('x1', '0%'); lexiconGrad.setAttribute('y1', '0%');
-    lexiconGrad.setAttribute('x2', '100%'); lexiconGrad.setAttribute('y2', '100%');
-    [
-      ['0%',    '#dc2626'],
-      ['20%',   '#ea580c'],
-      ['40%',   '#16a34a'],
-      ['60%',   '#2563eb'],
-      ['80%',   '#7c3aed'],
-      ['100%',  '#db2777'],
-    ].forEach(([offset, color]) => {
-      const s = document.createElementNS(SVG_NS, 'stop');
-      s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      lexiconGrad.appendChild(s);
-    });
-    defs.appendChild(lexiconGrad);
-  }
+  GRADIENTS.forEach(([id, x1, y1, x2, y2, stops]) => ensureGradient(id, x1, y1, x2, y2, stops));
 }
 
 function hxIsoDateLocal(d = new Date()) {
@@ -3426,6 +3195,84 @@ function makePowerUpHexSVG(type) {
   }
 }
 
+/* ── Power-up metadata ─────────────────────────────────────────── */
+/**
+ * Single source of truth for all power-up types.
+ * Used by updatePowerUpBar, showPowerUpCollectToast, and showPowerUpUsedToast.
+ */
+const HX_POWERUP_META = [
+  {
+    type:       'amethyst',
+    bar:        'left',
+    countKey:   'amethystCount',
+    title:      'Transmute: change any tile\'s letter',
+    ariaLabel:  'Amethyst power-up',
+    activate:   () => activateAmethyst(),
+    collectHtml: '<span class="hx-powerup-toast-title">✨ AMETHYST COLLECTED</span><span class="hx-powerup-toast-desc">Tap to change a tile\'s letter!</span>',
+    usedHtml:    '<span class="hx-powerup-toast-title">🔮 AMETHYST USED</span>',
+  },
+  {
+    type:       'oracle',
+    bar:        'left',
+    countKey:   'oracleCount',
+    title:      'Oracle: highlight longest word path',
+    ariaLabel:  'Oracle power-up',
+    activate:   () => activateOracle(),
+    collectHtml: '<span class="hx-powerup-toast-title">⊙ ORACLE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to highlight the longest possible word!</span>',
+    usedHtml:    '<span class="hx-powerup-toast-title">⊙ ORACLE ACTIVATED</span>',
+  },
+  {
+    type:       'beacon',
+    bar:        'left',
+    countKey:   'beaconCount',
+    title:      'Beacon: reveal highest-scoring word',
+    ariaLabel:  'Beacon power-up',
+    activate:   () => activateBeacon(),
+    collectHtml: '<span class="hx-powerup-toast-title">◆ BEACON COLLECTED</span><span class="hx-powerup-toast-desc">Tap to reveal the highest-scoring word!</span>',
+    usedHtml:    '<span class="hx-powerup-toast-title">◆ BEACON ACTIVATED</span>',
+  },
+  {
+    type:       'eclipse',
+    bar:        'left',
+    countKey:   'eclipseCount',
+    title:      'Eclipse: invert letter values for next word',
+    ariaLabel:  'Eclipse power-up',
+    activate:   () => activateEclipse(),
+    collectHtml: '<span class="hx-powerup-toast-title">☽ ECLIPSE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to invert letter values for your next word!</span>',
+    usedHtml:    '<span class="hx-powerup-toast-title">☽ ECLIPSE ACTIVE — Next word uses inverted values!</span>',
+  },
+  {
+    type:       'selenite',
+    bar:        'right',
+    countKey:   'seleniteCount',
+    title:      'Phase Swap: swap any two tiles',
+    ariaLabel:  'Selenite power-up',
+    activate:   () => activateSelenite(),
+    collectHtml: '<span class="hx-powerup-toast-title">✨ SELENITE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to swap two tiles!</span>',
+    usedHtml:    '<span class="hx-powerup-toast-title">🌙 SELENITE USED</span>',
+  },
+  {
+    type:       'lodestone',
+    bar:        'right',
+    countKey:   'lodestoneCount',
+    title:      'Lodestone: +1 score multiplier for next word',
+    ariaLabel:  'Lodestone power-up',
+    activate:   () => activateLodestone(),
+    collectHtml: '<span class="hx-powerup-toast-title">⬡ LODESTONE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to boost your next word\'s multiplier!</span>',
+    usedHtml:    '<span class="hx-powerup-toast-title">⬡ LODESTONE ACTIVE — Next word gets +1 multiplier!</span>',
+  },
+  {
+    type:       'lexicon',
+    bar:        'right',
+    countKey:   'lexiconCount',
+    title:      'Lexicon: reveal top 5 words on board (one-time)',
+    ariaLabel:  'Lexicon power-up',
+    activate:   () => activateLexicon(),
+    collectHtml: '<span class="hx-powerup-toast-title">∞ LEXICON COLLECTED</span><span class="hx-powerup-toast-desc">Tap to reveal the top 5 words on the board!</span>',
+    usedHtml:    '<span class="hx-powerup-toast-title">∞ LEXICON USED</span>',
+  },
+];
+
 function _makePowerUpBtn(type, title, ariaLabel, count, activateFn) {
   const btn = document.createElement('button');
   btn.className = `hx-powerup-icon-btn hx-powerup-icon-btn--${type}`;
@@ -3449,82 +3296,41 @@ function updatePowerUpBar() {
   barLeft.innerHTML  = '';
   barRight.innerHTML = '';
 
-  if (hxState.amethystCount > 0) {
-    barLeft.appendChild(_makePowerUpBtn('amethyst', 'Transmute: change any tile\'s letter', 'Amethyst power-up', hxState.amethystCount, () => activateAmethyst()));
-  }
-  if (hxState.oracleCount > 0) {
-    barLeft.appendChild(_makePowerUpBtn('oracle', 'Oracle: highlight longest word path', 'Oracle power-up', hxState.oracleCount, () => activateOracle()));
-  }
-  if (hxState.beaconCount > 0) {
-    barLeft.appendChild(_makePowerUpBtn('beacon', 'Beacon: reveal highest-scoring word', 'Beacon power-up', hxState.beaconCount, () => activateBeacon()));
-  }
-  if (hxState.eclipseCount > 0) {
-    barLeft.appendChild(_makePowerUpBtn('eclipse', 'Eclipse: invert letter values for next word', 'Eclipse power-up', hxState.eclipseCount, () => activateEclipse()));
-  }
-
-  if (hxState.seleniteCount > 0) {
-    barRight.appendChild(_makePowerUpBtn('selenite', 'Phase Swap: swap any two tiles', 'Selenite power-up', hxState.seleniteCount, () => activateSelenite()));
-  }
-  if (hxState.lodestoneCount > 0) {
-    barRight.appendChild(_makePowerUpBtn('lodestone', 'Lodestone: +1 score multiplier for next word', 'Lodestone power-up', hxState.lodestoneCount, () => activateLodestone()));
-  }
-  if (hxState.lexiconCount > 0) {
-    barRight.appendChild(_makePowerUpBtn('lexicon', 'Lexicon: reveal top 5 words on board (one-time)', 'Lexicon power-up', hxState.lexiconCount, () => activateLexicon()));
+  for (const meta of HX_POWERUP_META) {
+    const count = hxState[meta.countKey];
+    if (count > 0) {
+      const bar = meta.bar === 'left' ? barLeft : barRight;
+      bar.appendChild(_makePowerUpBtn(meta.type, meta.title, meta.ariaLabel, count, meta.activate));
+    }
   }
 }
 
 /* ── Power-up toast notification ──────────────────────────────── */
 function showPowerUpCollectToast(type) {
-  const existing = document.getElementById('hx-powerup-toast');
-  if (existing) existing.remove();
+  document.getElementById('hx-powerup-toast')?.remove();
+
+  const meta = HX_POWERUP_META.find(m => m.type === type);
+  if (!meta) return;
 
   const toast = document.createElement('div');
   toast.id = 'hx-powerup-toast';
   toast.className = `hx-powerup-toast hx-powerup-toast--${type}`;
-
-  if (type === 'amethyst') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">✨ AMETHYST COLLECTED</span><span class="hx-powerup-toast-desc">Tap to change a tile\'s letter!</span>';
-  } else if (type === 'selenite') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">✨ SELENITE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to swap two tiles!</span>';
-  } else if (type === 'oracle') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">⊙ ORACLE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to highlight the longest possible word!</span>';
-  } else if (type === 'beacon') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">◆ BEACON COLLECTED</span><span class="hx-powerup-toast-desc">Tap to reveal the highest-scoring word!</span>';
-  } else if (type === 'eclipse') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">☽ ECLIPSE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to invert letter values for your next word!</span>';
-  } else if (type === 'lodestone') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">⬡ LODESTONE COLLECTED</span><span class="hx-powerup-toast-desc">Tap to boost your next word\'s multiplier!</span>';
-  } else if (type === 'lexicon') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">∞ LEXICON COLLECTED</span><span class="hx-powerup-toast-desc">Tap to reveal the top 5 words on the board!</span>';
-  }
+  toast.innerHTML = meta.collectHtml;
 
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 3000);
 }
 
 function showPowerUpUsedToast(type) {
-  const existing = document.getElementById('hx-powerup-toast');
-  if (existing) existing.remove();
+  document.getElementById('hx-powerup-toast')?.remove();
+
+  const meta = HX_POWERUP_META.find(m => m.type === type);
+  if (!meta) return;
 
   const toast = document.createElement('div');
   toast.id = 'hx-powerup-toast';
   toast.className = `hx-powerup-toast hx-powerup-toast--${type}`;
-
-  if (type === 'amethyst') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">🔮 AMETHYST USED</span>';
-  } else if (type === 'selenite') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">🌙 SELENITE USED</span>';
-  } else if (type === 'oracle') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">⊙ ORACLE ACTIVATED</span>';
-  } else if (type === 'beacon') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">◆ BEACON ACTIVATED</span>';
-  } else if (type === 'eclipse') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">☽ ECLIPSE ACTIVE — Next word uses inverted values!</span>';
-  } else if (type === 'lodestone') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">⬡ LODESTONE ACTIVE — Next word gets +1 multiplier!</span>';
-  } else if (type === 'lexicon') {
-    toast.innerHTML = '<span class="hx-powerup-toast-title">∞ LEXICON USED</span>';
-  }
+  toast.innerHTML = meta.usedHtml;
 
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 2000);
