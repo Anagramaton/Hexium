@@ -1,0 +1,12 @@
+{
+  "name": "hexium",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate:daily-hexacore": "node scripts/generateDailyHexacore.mjs",
+    "generate:daily-hexacore:batch": "node scripts/generateDailyHexacore.mjs --count=30"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.98.0"
+  }
+}
