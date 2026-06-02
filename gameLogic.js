@@ -21,7 +21,11 @@ let _dictionarySet = null;
 
 export function getDictionarySet() {
   if (!_dictionarySet) {
-    _dictionarySet = new Set(wordList.map(word => word.toUpperCase()));
+    _dictionarySet = new Set(
+      wordList
+        .filter(word => typeof word === 'string' && word !== '')
+        .map(word => word.toUpperCase())
+    );
   }
   return _dictionarySet;
 }
