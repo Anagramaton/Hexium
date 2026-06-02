@@ -22,9 +22,12 @@ let _dictionarySet = null;
 export function getDictionarySet() {
   if (!_dictionarySet) {
     _dictionarySet = new Set(
-      wordList
-        .filter(word => typeof word === 'string' && word !== '')
-        .map(word => word.toUpperCase())
+      wordList.reduce((validWords, word) => {
+        if (typeof word !== 'string') return validWords;
+        const normalizedWord = word.trim();
+        if (normalizedWord !== '') validWords.push(normalizedWord.toUpperCase());
+        return validWords;
+      }, [])
     );
   }
   return _dictionarySet;
